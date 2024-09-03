@@ -1,6 +1,6 @@
 # SMILE2Spec
 
-LLM models for predicting IR vibrational spectra from SMILE representation of molecules.
+Predicting IR vibrational spectra from SMILES representation of molecules using LLMs.
 
 ## Description
 

@@ -4,7 +4,7 @@ Predicting IR vibrational spectra from SMILES representation of molecules using 
 
 ## Description
 
-This repository contents consists of my internship's project in 2024, during my M1 Maths&IA at Université Paris-Saclay. It consists of several notebooks and packages containing various versions of prediction model for vibrationnal spectra.
+This repository consists of my internship's project in 2024, during my M1 Maths&IA at Université Paris-Saclay. It consists of several notebooks and packages containing various versions of prediction model for vibrationnal spectra.
 
 These models were developed in order to predict IR vibrational spectra of various molecules, encoded in the form of SMILES. It utilizes the recent ChemBERTa models in order to encode these SMILES, then predict the IR vibrational spectrum in the form of an aborbance vector.
 

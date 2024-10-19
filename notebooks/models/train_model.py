@@ -36,8 +36,8 @@ from datasets import load_from_disk
 from huggingface_hub import login
 
 # supress progress bars (for cleaner log files)
-logging.basicConfig(level=logging.ERROR)
-os.environ["TQDM_DISABLE"] = "1"
+# logging.basicConfig(level=logging.ERROR)
+# os.environ["TQDM_DISABLE"] = "1"
 
 
 # --------- #

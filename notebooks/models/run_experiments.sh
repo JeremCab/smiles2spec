@@ -11,7 +11,7 @@ for h in "${hidden_layers[@]}"; do
 
     echo "Running experiment with model=$model, hidden_layers=$h, and epochs=$nb_epochs"
     
-    python3 train_model.py \
+    export TRANSFORMERS_NO_PROGRESS_BAR=true python3 train_model.py \
         --inputs smiles \
         --data_type "$data" \
         --model "$model" \

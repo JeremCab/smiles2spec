@@ -17,7 +17,7 @@ for h in "${hidden_layers[@]}"; do
         --hidden_layers "$h" \
         --input_dim 200 \
         --hidden_dim 2200 \
-        --epochs "$nb_epochs" >> experiment.log 2>&1
+        --epochs "$nb_epochs" >> experiments.log 2>&1
     
     echo "Experiment completed."
     echo

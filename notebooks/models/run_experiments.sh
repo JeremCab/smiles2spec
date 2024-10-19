@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export TRANSFORMERS_NO_PROGRESS_BAR=true
+
 model="DeepChem/ChemBERTa-5M-MTR"
 data="comp"
 nb_epochs=5
@@ -11,7 +13,7 @@ for h in "${hidden_layers[@]}"; do
 
     echo "Running experiment with model=$model, hidden_layers=$h, and epochs=$nb_epochs"
     
-    export TRANSFORMERS_NO_PROGRESS_BAR=true python3 train_model.py \
+    python3 train_model.py \
         --inputs smiles \
         --data_type "$data" \
         --model "$model" \

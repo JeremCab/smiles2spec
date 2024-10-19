@@ -423,7 +423,7 @@ trainer = CustomTrainer(
 
 
 start_time = time.time()
-results = trainer.train()
+results = trainer.train(disable_tqdm=True)
 training_time = time.time() - start_time
 
 
@@ -529,7 +529,7 @@ if FINETUNING:
     
     # training
     start_time = time.time()
-    results = trainer.train()
+    results = trainer.train(disable_tqdm=True)
     training_time = time.time() - start_time
 
 

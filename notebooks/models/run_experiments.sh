@@ -1,6 +1,7 @@
 #!/bin/bash
 
 model="DeepChem/ChemBERTa-5M-MTR"
+data="comp"
 nb_epochs=5
 
 hidden_layers=(0 1 3 5)
@@ -12,7 +13,7 @@ for h in "${hidden_layers[@]}"; do
     
     python3 train_model.py \
         --inputs smiles \
-        --data_type comp \
+        --data_type "$data" \
         --model "$model" \
         --hidden_layers "$h" \
         --input_dim 200 \

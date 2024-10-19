@@ -12,7 +12,7 @@
 # Libraries #
 # --------- #
 
-
+import logging
 import os
 import shutil
 import time
@@ -35,7 +35,8 @@ from datasets import load_from_disk
 
 from huggingface_hub import login
 
-
+# supress progress bars (for cleaner log files)
+logging.basicConfig(level=logging.ERROR)
 
 
 # --------- #

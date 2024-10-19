@@ -1,5 +1,5 @@
 #!/bin/bash
-s
+
 model="DeepChem/ChemBERTa-5M-MTR"
 data="comp"
 nb_epochs=5

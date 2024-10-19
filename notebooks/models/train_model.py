@@ -16,22 +16,12 @@
 import os
 import shutil
 import time
-
 import argparse
-
 import pickle
-
-import ast
-import numpy as np
-
 import wandb
 
 import torch
 import torch.nn as nn
-
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report
 
 import transformers
 from transformers import Trainer, TrainingArguments
@@ -42,15 +32,9 @@ from transformers.modeling_outputs import SequenceClassifierOutput
 import datasets
 from datasets import load_from_disk
 # from datasets import load_metric
-# from evaluate import load
-
-import matplotlib.pyplot as plt
-
-from scipy.ndimage import gaussian_filter1d
 
 from huggingface_hub import login
 
-# from typing import Optional
 
 
 
@@ -59,7 +43,7 @@ from huggingface_hub import login
 # --------- #
 
 # example of command line:
-# python3 train_model.py --inputs smiles --data_type comp --model DeepChem/ChemBERTa-5M-MTR --hidden_layers 0 --input_dim 200 --hidden_dim 2200 --epochs 0.1
+# python3 train_model.py --inputs smiles --data_type comp --model DeepChem/ChemBERTa-5M-MTR --hidden_layers 0 --input_dim 200 --hidden_dim 2200 --epochs 0.1 >> experiment.log 2>&1
 
 # Create argument parser
 parser = argparse.ArgumentParser(description="Training arguments...")
@@ -586,7 +570,6 @@ test_preds_exp, test_truths_exp = predicts_exp.predictions, predicts_exp.label_i
 
 # save results (if not in loading mode)
 
-    
 torch.save(test_preds_comp, os.path.join(RESULTS_FOLDER,'test_preds_comp.pt'))
 torch.save(test_truths_comp, os.path.join(RESULTS_FOLDER,'test_truths_comp.pt'))
 
@@ -594,4 +577,4 @@ torch.save(test_preds_exp, os.path.join(RESULTS_FOLDER,'test_preds_exp.pt'))
 torch.save(test_truths_exp, os.path.join(RESULTS_FOLDER,'test_truths_exp.pt'))
 
 print("Predictions saved.")
-print("*** Experiment finished ***")
+print("*** Experiment finished ***\n")

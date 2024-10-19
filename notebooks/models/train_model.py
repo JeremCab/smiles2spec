@@ -59,7 +59,10 @@ from huggingface_hub import login
 # --------- #
 
 # example of command line:
-# python3 train_model.py --input smiles --data_type comp --model DeepChem/ChemBERTa-5M-MTR --hidden_layers 0 --input_dim 200 --hidden_dim" 2200 --epochs=0.1
+# python3 train_model.py --inputs smiles --data_type comp --model DeepChem/ChemBERTa-5M-MTR --hidden_layers 0 --input_dim 200 --hidden_dim 2200 --epochs 0.1
+
+# Create argument parser
+parser = argparse.ArgumentParser(description="Training arguments...")
 
 # 1.
 parser.add_argument("--inputs", choices=["smiles", "selfies"], default="smiles", help="SMILES or SELFIES")
@@ -69,9 +72,6 @@ parser.add_argument("--data_type", choices=["comp", "exp"], default="comp", help
 
 # 3.
 parser.add_argument("--model",  type=str, default="DeepChem/ChemBERTa-5M-MTR", help="Computational or experimental spectra")
-
-if model_name == "DeepChem/ChemBERTa-5M-MTR":
-    INPUTS = "selfies"
 
 # 4.
 parser.add_argument("--hidden_layers", type=int, default=0, help="Number of hidden layers for the FFNN")
@@ -90,9 +90,6 @@ parser.add_argument("--batch_size", type=int, default=64, help="Batch size")
 
 # 9.
 parser.add_argument("--finetuning", type=bool, default=False, help="Whether too finetune on experimental data")
-
-# 10.
-parser.add_argument("--loading_mode", type=bool, default=False, help="Whether to load a pre-trained model or not")
 
 # Parse arguments
 args = parser.parse_args()
@@ -114,8 +111,12 @@ DATA_TYPE = args.data_type
 #    "ncfrey/ChemGPT-4.7M"
 #    ...
 MODEL_NAME = args.model
+if MODEL_NAME == "ncfrey/ChemGPT-4.7M":
+    INPUTS = "selfies"
+    
 MODEL_SUFFIX = MODEL_NAME.split("/")[1]
 
+print("*** Start experiment ***")
 print(f"Inputs:    {INPUTS}")
 print(f"Data type: {DATA_TYPE}")
 print(f"Model:     {MODEL_NAME}")
@@ -151,17 +152,10 @@ args_d = {
 NB_EPOCHS = args.epochs           # 5, 10
 BATCH_SIZE = args.batch_size      # 32, 64
 FINETUNING = args.finetuning      # False, True
-LOADING_MODE = args.loading_mode  # False, True
 
-ffn_num_layers = d_args["ffn_num_layers"]
-ffn_input_dim = d_args["ffn_input_dim"]
-ffn_hidden_dim = d_args["ffn_hidden_dim"]
-
-MODEL_CACHE = "/storage/smiles2spec_models"
-SPECIFICATIONS = f"{INPUTS}_{DATA_TYPE}_{MODEL_SUFFIX}_FFNN-{ffn_num_layers}-{ffn_input_dim}-{ffn_hidden_dim}"
-
-RESULTS_FOLDER = os.path.join(MODEL_CACHE, SPECIFICATIONS)
-print(f"Results folder: {RESULTS_FOLDER}")
+ffn_num_layers = args_d["ffn_num_layers"]
+ffn_input_dim = args_d["ffn_input_dim"]
+ffn_hidden_dim = args_d["ffn_hidden_dim"]
 
 
 
@@ -480,7 +474,7 @@ for d in dirs:
     shutil.rmtree(os.path.join(RESULTS_FOLDER, d))
 
 
-# Fine tune on experimental
+# Fine-tune on experimental
 
 if FINETUNING:
     
@@ -580,27 +574,6 @@ if FINETUNING:
 # Results #
 # ------- #
 
-# load model if necessarys
-
-if LOADING_MODE:
-
-    model = Smile2Spec(args)
-    
-    model_state_dict = torch.load(os.path.join(RESULTS_FOLDER, "model.pt"))
-    model.load_state_dict(model_state_dict)
-    
-    model.eval()
-
-    trainer = CustomTrainer(
-        model=model,
-        args=training_args,
-        tokenizer=tokenizer,
-        train_dataset=train_dataset,
-        eval_dataset=val_dataset
-    )
-    
-    print("Model loaded.")
-
 
 # compute predictions
 
@@ -612,77 +585,13 @@ test_preds_exp, test_truths_exp = predicts_exp.predictions, predicts_exp.label_i
 
 
 # save results (if not in loading mode)
-if not LOADING_MODE:
+
     
-    torch.save(test_preds_comp, os.path.join(RESULTS_FOLDER,'test_preds_comp.pt'))
-    torch.save(test_truths_comp, os.path.join(RESULTS_FOLDER,'test_truths_comp.pt'))
+torch.save(test_preds_comp, os.path.join(RESULTS_FOLDER,'test_preds_comp.pt'))
+torch.save(test_truths_comp, os.path.join(RESULTS_FOLDER,'test_truths_comp.pt'))
 
-    torch.save(test_preds_exp, os.path.join(RESULTS_FOLDER,'test_preds_exp.pt'))
-    torch.save(test_truths_exp, os.path.join(RESULTS_FOLDER,'test_truths_exp.pt'))
-    
-    print("Predictions saved.")
+torch.save(test_preds_exp, os.path.join(RESULTS_FOLDER,'test_preds_exp.pt'))
+torch.save(test_truths_exp, os.path.join(RESULTS_FOLDER,'test_truths_exp.pt'))
 
-
-# load results if necessary
-if LOADING_MODE:
-    
-    test_preds_comp = torch.load(os.path.join(RESULTS_FOLDER,'test_preds_comp.pt'))
-    test_truths_comp = torch.load(os.path.join(RESULTS_FOLDER,'test_truths_comp.pt'))
-
-    test_preds_exp = torch.load(os.path.join(RESULTS_FOLDER,'test_preds_exp.pt'))
-    test_truths_exp = torch.load(os.path.join(RESULTS_FOLDER,'test_truths_exp.pt'))
-    
-    print("Predictions loaded.")
-
-
-def SISScore(predicted_spectrum, true_spectrum):
-
-    # Gaussian Convolution
-    predicted_spectrum_conv = gaussian_filter1d(predicted_spectrum, 5)
-    true_spectrum_conv = gaussian_filter1d(true_spectrum, 5)
-
-    # Normalization
-    predicted_spectrum_conv = nn.functional.normalize(torch.tensor(predicted_spectrum_conv).reshape(1, -1), p=1)
-    true_spectrum_conv = nn.functional.normalize(torch.tensor(true_spectrum_conv).reshape(1, -1), p=1)
-    
-    # Initialize SID Class
-    SID = SIDLoss()
-    
-    sid = SID(predicted_spectrum_conv, true_spectrum_conv)
-
-    return 1/(1+sid)
-
-
-for i in np.random.choice(8551, 5):
-    
-    plt.figure(figsize=(14, 5))
-
-    spectrum_truth = test_truths_comp[i, :]
-    spectrum_pred = test_preds_comp[i, :]
-    spectrum_pred_smooth = gaussian_filter1d(spectrum_pred, 5) # plot smoothed predictions if preferred
-
-    sis_score = SISScore(spectrum_pred, spectrum_truth)
-
-    plt.plot(range(len(spectrum_truth)), spectrum_truth, label="true spectrum", alpha=0.5)
-    plt.plot(range(len(spectrum_pred)), spectrum_pred, label=f"predicted spectrum \nSIS Score : {sis_score:.2f}", alpha=0.5)
-    
-    plt.legend()
-    plt.show()
-
-
-for i in np.random.choice(6000, 5):
-    
-    plt.figure(figsize=(14, 5))
-
-    spectrum_truth = test_truths_exp[i, :]
-    spectrum_pred = test_preds_exp[i, :]
-    spectrum_pred_smooth = gaussian_filter1d(spectrum_pred, 5) # plot smoothed predictions if preferred
-    
-    sis_score = SISScore(spectrum_pred, spectrum_truth)
-
-    plt.plot(range(len(spectrum_truth)), spectrum_truth, label="true spectrum", alpha=0.5)
-
-    plt.plot(range(len(spectrum_pred)), spectrum_pred, label=f"predicted spectrum \nSIS Score : {sis_score:.2f}", alpha=0.5)
-    
-    plt.legend()
-    plt.show()
+print("Predictions saved.")
+print("*** Experiment finished ***")

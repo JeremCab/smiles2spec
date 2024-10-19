@@ -37,6 +37,7 @@ from huggingface_hub import login
 
 # supress progress bars (for cleaner log files)
 logging.basicConfig(level=logging.ERROR)
+os.environ["TQDM_DISABLE"] = "1"
 
 
 # --------- #

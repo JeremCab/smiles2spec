@@ -6,7 +6,7 @@ model="DeepChem/ChemBERTa-5M-MTR"
 data="comp"
 nb_epochs=5
 
-hidden_layers=(0 1 3 5)
+hidden_layers=(3 5) # (0, 1, 3, 5)
 
 # Loop
 for h in "${hidden_layers[@]}"; do

@@ -269,7 +269,7 @@ class Smile2Spec(nn.Module):
                                                                           num_labels=args_d.get('ffn_input_dim'))
             
             exactly_one_layer = args_d.get('ffn_num_layers') == 1
-            output_dim = args_d.get('ffn_output_dim') if exactly_one_layer else args.get('ffn_hidden_dim')
+            output_dim = args_d.get('ffn_output_dim') if exactly_one_layer else args_d.get('ffn_hidden_dim')
             
             ffn = [
                 dropout,
@@ -352,7 +352,6 @@ class SIDLoss(nn.Module):
 # --------- #
 
 model = Smile2Spec(args_d)
-model
 
 total_params = sum(p.numel() for p in model.parameters())
 total_trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)

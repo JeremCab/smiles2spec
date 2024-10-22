@@ -243,9 +243,9 @@ class Smile2Spec(nn.Module):
         # # Create LLM head. # xxx old
         # self.LLM = AutoModelForSequenceClassification.from_pretrained(args_d.get('model_name'), 
         #                                                               num_labels=args_d.get('ffn_output_dim'))
-        
-        if args_d.get('model_name').startswith("ncfrey/ChemGPT"): # xxx
-            self.LLM.config.pad_token_id = self.LLM.config.eos_token_id
+        #                    # xxx old
+        # if args_d.get('model_name').startswith("ncfrey/ChemGPT"):
+        #     self.LLM.config.pad_token_id = self.LLM.config.eos_token_id
         
         # Create output objects
         self.output_activation = args_d.get('output_activation')
@@ -260,6 +260,9 @@ class Smile2Spec(nn.Module):
             # xxx new
             self.LLM = AutoModelForSequenceClassification.from_pretrained(args_d.get('model_name'), 
                                                                           num_labels=args_d.get('ffn_output_dim'))
+            if args_d.get('model_name').startswith("ncfrey/ChemGPT"):
+                self.LLM.config.pad_token_id = self.LLM.config.eos_token_id
+                
             ffn = []
         
         if args_d.get('ffn_num_layers') >= 1:
@@ -267,6 +270,8 @@ class Smile2Spec(nn.Module):
             # xxx new
             self.LLM = AutoModelForSequenceClassification.from_pretrained(args_d.get('model_name'), 
                                                                           num_labels=args_d.get('ffn_input_dim'))
+            if args_d.get('model_name').startswith("ncfrey/ChemGPT"):
+                self.LLM.config.pad_token_id = self.LLM.config.eos_token_id
             
             exactly_one_layer = args_d.get('ffn_num_layers') == 1
             output_dim = args_d.get('ffn_output_dim') if exactly_one_layer else args_d.get('ffn_hidden_dim')

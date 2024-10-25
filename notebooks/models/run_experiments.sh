@@ -19,11 +19,11 @@ for m in "${models[@]}"; do
         TRANSFORMERS_NO_PROGRESS_BAR=true python3 train_model.py \
             --inputs smiles \
             --data_type "$data" \
-            --model "$model" \
+            --model "$m" \
             --hidden_layers "$h" \
             --input_dim 200 \
             --hidden_dim 2200 \
-            --epochs "$nb_epochs" >> experiments_ChemBERTa_exp.log 2>&1
+            --epochs "$nb_epochs" >> "experiments_${m}_exp.log 2>&1"
 
         echo "Experiment completed."
         echo

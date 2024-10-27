@@ -1,0 +1,140 @@
+Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at DeepChem/ChemBERTa-5M-MTR and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+*** Start experiment ***
+Inputs:    smiles
+Data type: exp
+Model:     DeepChem/ChemBERTa-5M-MTR
+Results folder: /storage/smiles2spec_models/smiles_exp_ChemBERTa-5M-MTR_FFNN-0-200-2200
+Total Params. :  4,120,825
+Total Trainable Params. :  4,120,825
+{'loss': 7275.0781, 'grad_norm': 17.96843147277832, 'learning_rate': 4.962962962962963e-05, 'epoch': 0.53}
+{'eval_loss': 24.912771224975586, 'eval_runtime': 5.885, 'eval_samples_per_second': 1019.549, 'eval_steps_per_second': 15.973, 'epoch': 0.53}
+{'loss': 3.0787, 'grad_norm': 0.21874122321605682, 'learning_rate': 4.3703703703703705e-05, 'epoch': 1.07}
+{'eval_loss': 1.0432566404342651, 'eval_runtime': 5.6665, 'eval_samples_per_second': 1058.859, 'eval_steps_per_second': 16.589, 'epoch': 1.07}
+{'loss': 1.18, 'grad_norm': 0.3018443286418915, 'learning_rate': 3.777777777777778e-05, 'epoch': 1.6}
+{'eval_loss': 1.025018334388733, 'eval_runtime': 5.4912, 'eval_samples_per_second': 1092.655, 'eval_steps_per_second': 17.118, 'epoch': 1.6}
+{'loss': 1.1019, 'grad_norm': 0.203114315867424, 'learning_rate': 3.185185185185185e-05, 'epoch': 2.13}
+{'eval_loss': 1.0233529806137085, 'eval_runtime': 5.8239, 'eval_samples_per_second': 1030.231, 'eval_steps_per_second': 16.14, 'epoch': 2.13}
+{'loss': 1.1625, 'grad_norm': 0.25939130783081055, 'learning_rate': 2.5925925925925925e-05, 'epoch': 2.67}
+{'eval_loss': 1.0167205333709717, 'eval_runtime': 5.9026, 'eval_samples_per_second': 1016.508, 'eval_steps_per_second': 15.925, 'epoch': 2.67}
+{'loss': 1.1501, 'grad_norm': 0.2980990707874298, 'learning_rate': 2e-05, 'epoch': 3.2}
+{'eval_loss': 1.0060291290283203, 'eval_runtime': 5.5329, 'eval_samples_per_second': 1084.416, 'eval_steps_per_second': 16.989, 'epoch': 3.2}
+{'loss': 1.1996, 'grad_norm': 0.3130130171775818, 'learning_rate': 1.4074074074074075e-05, 'epoch': 3.73}
+{'eval_loss': 1.0012562274932861, 'eval_runtime': 5.5098, 'eval_samples_per_second': 1088.97, 'eval_steps_per_second': 17.061, 'epoch': 3.73}
+{'loss': 1.076, 'grad_norm': 0.25617408752441406, 'learning_rate': 8.14814814814815e-06, 'epoch': 4.27}
+{'eval_loss': 0.9950112104415894, 'eval_runtime': 5.7735, 'eval_samples_per_second': 1039.239, 'eval_steps_per_second': 16.281, 'epoch': 4.27}
+{'loss': 1.185, 'grad_norm': 0.20183198153972626, 'learning_rate': 2.2222222222222225e-06, 'epoch': 4.8}
+{'eval_loss': 0.9906114339828491, 'eval_runtime': 5.8549, 'eval_samples_per_second': 1024.79, 'eval_steps_per_second': 16.055, 'epoch': 4.8}
+{'train_runtime': 551.769, 'train_samples_per_second': 434.965, 'train_steps_per_second': 6.796, 'train_loss': 777.2386262654622, 'epoch': 5.0}
+Predictions saved.
+*** Experiment finished ***
+
+Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at DeepChem/ChemBERTa-5M-MTR and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+*** Start experiment ***
+Inputs:    smiles
+Data type: exp
+Model:     DeepChem/ChemBERTa-5M-MTR
+Results folder: /storage/smiles2spec_models/smiles_exp_ChemBERTa-5M-MTR_FFNN-1-200-2200
+Total Params. :  3,866,441
+Total Trainable Params. :  3,866,441
+{'loss': 7520.3681, 'grad_norm': 2.9929285049438477, 'learning_rate': 4.962962962962963e-05, 'epoch': 0.53}
+{'eval_loss': 2.1133477687835693, 'eval_runtime': 5.6831, 'eval_samples_per_second': 1055.756, 'eval_steps_per_second': 16.54, 'epoch': 0.53}
+{'loss': 2.567, 'grad_norm': 0.9964728951454163, 'learning_rate': 4.3703703703703705e-05, 'epoch': 1.07}
+{'eval_loss': 1.3317958116531372, 'eval_runtime': 5.6632, 'eval_samples_per_second': 1059.471, 'eval_steps_per_second': 16.598, 'epoch': 1.07}
+{'loss': 1.8224, 'grad_norm': 1.8799529075622559, 'learning_rate': 3.777777777777778e-05, 'epoch': 1.6}
+{'eval_loss': 1.1597115993499756, 'eval_runtime': 5.5849, 'eval_samples_per_second': 1074.322, 'eval_steps_per_second': 16.831, 'epoch': 1.6}
+{'loss': 1.5711, 'grad_norm': 0.7463398575782776, 'learning_rate': 3.185185185185185e-05, 'epoch': 2.13}
+{'eval_loss': 1.0672303438186646, 'eval_runtime': 5.7336, 'eval_samples_per_second': 1046.461, 'eval_steps_per_second': 16.395, 'epoch': 2.13}
+{'loss': 1.5453, 'grad_norm': 2.6703622341156006, 'learning_rate': 2.5925925925925925e-05, 'epoch': 2.67}
+{'eval_loss': 1.131079077720642, 'eval_runtime': 5.8066, 'eval_samples_per_second': 1033.304, 'eval_steps_per_second': 16.188, 'epoch': 2.67}
+{'loss': 1.4919, 'grad_norm': 0.7717806100845337, 'learning_rate': 2e-05, 'epoch': 3.2}
+{'eval_loss': 1.0471137762069702, 'eval_runtime': 5.8351, 'eval_samples_per_second': 1028.255, 'eval_steps_per_second': 16.109, 'epoch': 3.2}
+{'loss': 1.5066, 'grad_norm': 1.045860767364502, 'learning_rate': 1.4074074074074075e-05, 'epoch': 3.73}
+{'eval_loss': 1.0304163694381714, 'eval_runtime': 5.6215, 'eval_samples_per_second': 1067.328, 'eval_steps_per_second': 16.721, 'epoch': 3.73}
+{'loss': 1.3468, 'grad_norm': 0.942694902420044, 'learning_rate': 8.14814814814815e-06, 'epoch': 4.27}
+{'eval_loss': 0.980498194694519, 'eval_runtime': 5.6801, 'eval_samples_per_second': 1056.322, 'eval_steps_per_second': 16.549, 'epoch': 4.27}
+{'loss': 1.435, 'grad_norm': 1.3394896984100342, 'learning_rate': 2.2222222222222225e-06, 'epoch': 4.8}
+{'eval_loss': 0.981288731098175, 'eval_runtime': 5.6198, 'eval_samples_per_second': 1067.65, 'eval_steps_per_second': 16.727, 'epoch': 4.8}
+{'train_runtime': 547.375, 'train_samples_per_second': 438.456, 'train_steps_per_second': 6.851, 'train_loss': 803.642184403483, 'epoch': 5.0}
+Predictions saved.
+*** Experiment finished ***
+
+Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at DeepChem/ChemBERTa-5M-MTR and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+*** Start experiment ***
+Inputs:    smiles
+Data type: exp
+Model:     DeepChem/ChemBERTa-5M-MTR
+Results folder: /storage/smiles2spec_models/smiles_exp_ChemBERTa-5M-MTR_FFNN-3-200-2200
+Total Params. :  12,752,841
+Total Trainable Params. :  12,752,841
+{'loss': 4771.915, 'grad_norm': 1.9918359518051147, 'learning_rate': 4.962962962962963e-05, 'epoch': 0.53}
+{'eval_loss': 1.0929677486419678, 'eval_runtime': 5.6557, 'eval_samples_per_second': 1060.886, 'eval_steps_per_second': 16.621, 'epoch': 0.53}
+{'loss': 1.4104, 'grad_norm': 1.127181053161621, 'learning_rate': 4.3703703703703705e-05, 'epoch': 1.07}
+{'eval_loss': 8.475320816040039, 'eval_runtime': 5.8762, 'eval_samples_per_second': 1021.074, 'eval_steps_per_second': 15.997, 'epoch': 1.07}
+{'loss': 1.2162, 'grad_norm': 3.0237321853637695, 'learning_rate': 3.777777777777778e-05, 'epoch': 1.6}
+{'eval_loss': 7.270856857299805, 'eval_runtime': 5.5653, 'eval_samples_per_second': 1078.117, 'eval_steps_per_second': 16.891, 'epoch': 1.6}
+{'loss': 0.9785, 'grad_norm': 1.2082048654556274, 'learning_rate': 3.185185185185185e-05, 'epoch': 2.13}
+{'eval_loss': 10.682114601135254, 'eval_runtime': 5.7119, 'eval_samples_per_second': 1050.438, 'eval_steps_per_second': 16.457, 'epoch': 2.13}
+{'loss': 0.9807, 'grad_norm': 2.7922897338867188, 'learning_rate': 2.5925925925925925e-05, 'epoch': 2.67}
+{'eval_loss': 10.569973945617676, 'eval_runtime': 5.4576, 'eval_samples_per_second': 1099.389, 'eval_steps_per_second': 17.224, 'epoch': 2.67}
+{'loss': 0.907, 'grad_norm': 1.756256341934204, 'learning_rate': 2e-05, 'epoch': 3.2}
+{'eval_loss': 9.7448091506958, 'eval_runtime': 5.6683, 'eval_samples_per_second': 1058.513, 'eval_steps_per_second': 16.583, 'epoch': 3.2}
+{'loss': 0.8953, 'grad_norm': 2.2299342155456543, 'learning_rate': 1.4074074074074075e-05, 'epoch': 3.73}
+{'eval_loss': 8.913702011108398, 'eval_runtime': 5.6684, 'eval_samples_per_second': 1058.497, 'eval_steps_per_second': 16.583, 'epoch': 3.73}
+{'loss': 0.76, 'grad_norm': 1.9045413732528687, 'learning_rate': 8.14814814814815e-06, 'epoch': 4.27}
+{'eval_loss': 8.03496265411377, 'eval_runtime': 5.5653, 'eval_samples_per_second': 1078.116, 'eval_steps_per_second': 16.89, 'epoch': 4.27}
+{'loss': 0.8506, 'grad_norm': 1.8758337497711182, 'learning_rate': 2.2222222222222225e-06, 'epoch': 4.8}
+{'eval_loss': 8.763964653015137, 'eval_runtime': 5.5851, 'eval_samples_per_second': 1074.278, 'eval_steps_per_second': 16.83, 'epoch': 4.8}
+{'train_runtime': 557.3918, 'train_samples_per_second': 430.577, 'train_steps_per_second': 6.728, 'train_loss': 509.8870047709147, 'epoch': 5.0}
+Predictions saved.
+*** Experiment finished ***
+
+Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at DeepChem/ChemBERTa-5M-MTR and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+*** Start experiment ***
+Inputs:    smiles
+Data type: exp
+Model:     DeepChem/ChemBERTa-5M-MTR
+Results folder: /storage/smiles2spec_models/smiles_exp_ChemBERTa-5M-MTR_FFNN-5-200-2200
+Total Params. :  22,437,241
+Total Trainable Params. :  22,437,241
+{'loss': 4092.2797, 'grad_norm': 2.444092273712158, 'learning_rate': 4.962962962962963e-05, 'epoch': 0.53}
+{'eval_loss': 1.8107547760009766, 'eval_runtime': 5.5828, 'eval_samples_per_second': 1074.721, 'eval_steps_per_second': 16.837, 'epoch': 0.53}
+{'loss': 1.5006, 'grad_norm': 10.293889045715332, 'learning_rate': 4.3703703703703705e-05, 'epoch': 1.07}
+{'eval_loss': 4.048335075378418, 'eval_runtime': 5.8932, 'eval_samples_per_second': 1018.123, 'eval_steps_per_second': 15.951, 'epoch': 1.07}
+{'loss': 1.3086, 'grad_norm': 3.5757741928100586, 'learning_rate': 3.777777777777778e-05, 'epoch': 1.6}
+{'eval_loss': 2.4062857627868652, 'eval_runtime': 5.9739, 'eval_samples_per_second': 1004.37, 'eval_steps_per_second': 15.735, 'epoch': 1.6}
+{'loss': 1.1785, 'grad_norm': 4.722975254058838, 'learning_rate': 3.185185185185185e-05, 'epoch': 2.13}
+{'eval_loss': 1.597442388534546, 'eval_runtime': 5.9182, 'eval_samples_per_second': 1013.819, 'eval_steps_per_second': 15.883, 'epoch': 2.13}
+{'loss': 1.1999, 'grad_norm': 1.3634289503097534, 'learning_rate': 2.5925925925925925e-05, 'epoch': 2.67}
+{'eval_loss': 0.9999786615371704, 'eval_runtime': 5.743, 'eval_samples_per_second': 1044.747, 'eval_steps_per_second': 16.368, 'epoch': 2.67}
+{'loss': 1.1842, 'grad_norm': 2.1195199489593506, 'learning_rate': 2e-05, 'epoch': 3.2}
+{'eval_loss': 1.0565415620803833, 'eval_runtime': 5.7548, 'eval_samples_per_second': 1042.616, 'eval_steps_per_second': 16.334, 'epoch': 3.2}
+{'loss': 1.227, 'grad_norm': 0.7993195652961731, 'learning_rate': 1.4074074074074075e-05, 'epoch': 3.73}
+{'eval_loss': 1.012387752532959, 'eval_runtime': 5.8652, 'eval_samples_per_second': 1022.988, 'eval_steps_per_second': 16.027, 'epoch': 3.73}
+{'loss': 1.1004, 'grad_norm': 1.4066948890686035, 'learning_rate': 8.14814814814815e-06, 'epoch': 4.27}
+{'eval_loss': 1.022875189781189, 'eval_runtime': 6.0014, 'eval_samples_per_second': 999.774, 'eval_steps_per_second': 15.663, 'epoch': 4.27}
+{'loss': 1.2104, 'grad_norm': 1.527521014213562, 'learning_rate': 2.2222222222222225e-06, 'epoch': 4.8}
+{'eval_loss': 1.001495122909546, 'eval_runtime': 5.7099, 'eval_samples_per_second': 1050.803, 'eval_steps_per_second': 16.463, 'epoch': 4.8}
+{'train_runtime': 580.7321, 'train_samples_per_second': 413.271, 'train_steps_per_second': 6.457, 'train_loss': 437.61066451416013, 'epoch': 5.0}
+Predictions saved.
+*** Experiment finished ***
+

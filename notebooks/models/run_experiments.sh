@@ -3,12 +3,12 @@
 export TQDM_DISABLE=1
 
 # "DeepChem/ChemBERTa-5M-MTR" "ncfrey/ChemGPT-4.7M"
-models=("DeepChem/ChemBERTa-5M-MTR" "ncfrey/ChemGPT-4.7M") 
+models=("ncfrey/ChemGPT-4.7M") # "DeepChem/ChemBERTa-5M-MTR"
 
 data="exp"
 nb_epochs=5
 
-hidden_layers=(0 1 3 5) # (0 1 3 5)
+hidden_layers=(3 5) # (0 1 3 5)
 
 # Loop
 for m in "${models[@]}"; do

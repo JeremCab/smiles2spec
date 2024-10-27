@@ -1,0 +1,70 @@
+Some weights of GPTNeoForSequenceClassification were not initialized from the model checkpoint at ncfrey/ChemGPT-4.7M and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+*** Start experiment ***
+Inputs:    selfies
+Data type: exp
+Model:     ncfrey/ChemGPT-4.7M
+Results folder: /storage/smiles2spec_models/selfies_exp_ChemGPT-4.7M_FFNN-0-200-2200
+Total Params. :  5,329,792
+Total Trainable Params. :  5,329,792
+{'loss': 7964.2419, 'grad_norm': 614.61767578125, 'learning_rate': 4.962962962962963e-05, 'epoch': 0.53}
+{'eval_loss': 715.6130981445312, 'eval_runtime': 15.9575, 'eval_samples_per_second': 375.999, 'eval_steps_per_second': 5.891, 'epoch': 0.53}
+{'loss': 92.0946, 'grad_norm': 0.8600240349769592, 'learning_rate': 4.3703703703703705e-05, 'epoch': 1.07}
+{'eval_loss': 1.2995525598526, 'eval_runtime': 14.4053, 'eval_samples_per_second': 416.515, 'eval_steps_per_second': 6.525, 'epoch': 1.07}
+{'loss': 1.0902, 'grad_norm': 2.4346399307250977, 'learning_rate': 3.777777777777778e-05, 'epoch': 1.6}
+{'eval_loss': 0.8647190928459167, 'eval_runtime': 14.4263, 'eval_samples_per_second': 415.908, 'eval_steps_per_second': 6.516, 'epoch': 1.6}
+{'loss': 0.7723, 'grad_norm': 0.9164809584617615, 'learning_rate': 3.185185185185185e-05, 'epoch': 2.13}
+{'eval_loss': 0.6933861374855042, 'eval_runtime': 14.2777, 'eval_samples_per_second': 420.235, 'eval_steps_per_second': 6.584, 'epoch': 2.13}
+{'loss': 0.705, 'grad_norm': 1.152955412864685, 'learning_rate': 2.5925925925925925e-05, 'epoch': 2.67}
+{'eval_loss': 0.6193323135375977, 'eval_runtime': 15.5237, 'eval_samples_per_second': 386.506, 'eval_steps_per_second': 6.055, 'epoch': 2.67}
+{'loss': 0.6432, 'grad_norm': 1.1955797672271729, 'learning_rate': 2e-05, 'epoch': 3.2}
+{'eval_loss': 0.5774848461151123, 'eval_runtime': 14.3352, 'eval_samples_per_second': 418.549, 'eval_steps_per_second': 6.557, 'epoch': 3.2}
+{'loss': 0.6514, 'grad_norm': 0.9677268862724304, 'learning_rate': 1.4074074074074075e-05, 'epoch': 3.73}
+{'eval_loss': 0.5501331090927124, 'eval_runtime': 16.2325, 'eval_samples_per_second': 369.63, 'eval_steps_per_second': 5.791, 'epoch': 3.73}
+{'loss': 0.5315, 'grad_norm': 0.963463544845581, 'learning_rate': 8.14814814814815e-06, 'epoch': 4.27}
+{'eval_loss': 0.532767117023468, 'eval_runtime': 14.8698, 'eval_samples_per_second': 403.501, 'eval_steps_per_second': 6.322, 'epoch': 4.27}
+{'loss': 0.6008, 'grad_norm': 1.0811737775802612, 'learning_rate': 2.2222222222222225e-06, 'epoch': 4.8}
+{'eval_loss': 0.5242192149162292, 'eval_runtime': 15.5163, 'eval_samples_per_second': 386.691, 'eval_steps_per_second': 6.058, 'epoch': 4.8}
+{'train_runtime': 2352.2067, 'train_samples_per_second': 102.032, 'train_steps_per_second': 1.594, 'train_loss': 859.895787125651, 'epoch': 5.0}
+Predictions saved.
+*** Experiment finished ***
+
+Some weights of GPTNeoForSequenceClassification were not initialized from the model checkpoint at ncfrey/ChemGPT-4.7M and are newly initialized: ['score.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+*** Start experiment ***
+Inputs:    selfies
+Data type: exp
+Model:     ncfrey/ChemGPT-4.7M
+Results folder: /storage/smiles2spec_models/selfies_exp_ChemGPT-4.7M_FFNN-1-200-2200
+Total Params. :  5,486,865
+Total Trainable Params. :  5,486,865
+{'loss': 7825.8769, 'grad_norm': 23.362947463989258, 'learning_rate': 4.962962962962963e-05, 'epoch': 0.53}
+{'eval_loss': 5.095490455627441, 'eval_runtime': 14.8816, 'eval_samples_per_second': 403.183, 'eval_steps_per_second': 6.317, 'epoch': 0.53}
+{'loss': 2.6289, 'grad_norm': 3.9885048866271973, 'learning_rate': 4.3703703703703705e-05, 'epoch': 1.07}
+{'eval_loss': 1.389696478843689, 'eval_runtime': 14.6085, 'eval_samples_per_second': 410.721, 'eval_steps_per_second': 6.435, 'epoch': 1.07}
+{'loss': 1.821, 'grad_norm': 6.230988502502441, 'learning_rate': 3.777777777777778e-05, 'epoch': 1.6}
+{'eval_loss': 1.0494842529296875, 'eval_runtime': 16.6063, 'eval_samples_per_second': 361.309, 'eval_steps_per_second': 5.661, 'epoch': 1.6}
+{'loss': 1.5131, 'grad_norm': 1.598435878753662, 'learning_rate': 3.185185185185185e-05, 'epoch': 2.13}
+{'eval_loss': 0.9382431507110596, 'eval_runtime': 14.8019, 'eval_samples_per_second': 405.354, 'eval_steps_per_second': 6.351, 'epoch': 2.13}
+{'loss': 1.4062, 'grad_norm': 2.0662171840667725, 'learning_rate': 2.5925925925925925e-05, 'epoch': 2.67}
+{'eval_loss': 0.817070484161377, 'eval_runtime': 15.5067, 'eval_samples_per_second': 386.93, 'eval_steps_per_second': 6.062, 'epoch': 2.67}
+{'loss': 1.2881, 'grad_norm': 3.1926674842834473, 'learning_rate': 2e-05, 'epoch': 3.2}
+{'eval_loss': 0.7616991996765137, 'eval_runtime': 15.7985, 'eval_samples_per_second': 379.784, 'eval_steps_per_second': 5.95, 'epoch': 3.2}
+{'loss': 1.2634, 'grad_norm': 2.3167412281036377, 'learning_rate': 1.4074074074074075e-05, 'epoch': 3.73}
+{'eval_loss': 0.7572743892669678, 'eval_runtime': 15.9432, 'eval_samples_per_second': 376.335, 'eval_steps_per_second': 5.896, 'epoch': 3.73}
+{'loss': 1.1076, 'grad_norm': 2.509213447570801, 'learning_rate': 8.14814814814815e-06, 'epoch': 4.27}
+{'eval_loss': 0.7092289924621582, 'eval_runtime': 14.0846, 'eval_samples_per_second': 425.998, 'eval_steps_per_second': 6.674, 'epoch': 4.27}
+{'loss': 1.1624, 'grad_norm': 2.0004825592041016, 'learning_rate': 2.2222222222222225e-06, 'epoch': 4.8}
+{'eval_loss': 0.6941279172897339, 'eval_runtime': 14.4768, 'eval_samples_per_second': 414.458, 'eval_steps_per_second': 6.493, 'epoch': 4.8}
+{'train_runtime': 2344.3063, 'train_samples_per_second': 102.376, 'train_steps_per_second': 1.6, 'train_loss': 836.1030284708659, 'epoch': 5.0}
+Predictions saved.
+*** Experiment finished ***
+

@@ -10,6 +10,7 @@
 
 # Libraries to be installed before runnin the script
 # pip install rdkit
+# pip install -U datasets
 # pip install transformers==4.45.2 # 4.46.0 makes pb
 # pip install -U huggingface_hub
 
@@ -75,34 +76,31 @@ login(HF_TOKEN)
 # 0. Create argument parser
 parser = argparse.ArgumentParser(description="Training arguments...")
 parser.add_argument("--results_folder", type=str, help="Results folder.") # non-default
-parser.add_argument("--results_dir", type=str, default="/storage/smiles2spec_models", help="Results directory.")
-parser.add_argument("--data_dir", type=str, default="/storage/smiles2spec_data", help="Data directory.")
-parser.add_argument("--new_results_dir", type=str, default="/notebooks/smiles2spec/notebooks/results", help="New results folder.")
+parser.add_argument("--data_folder", type=str, default="/storage/smiles2spec_data", help="Data directory.")
+parser.add_argument("--new_results_folder", type=str, default="/notebooks/smiles2spec/notebooks/results", help="New results folder.")
 args = parser.parse_args()
 
 # 1. Select results dir
-results_folder = args.results_folder
-RESULTS_DIR = args.results_dir
-NEW_RESULTS_DIR = args.new_results_dir
-RESULTS_FOLDER = os.path.join(RESULTS_DIR, results_folder)         # where to load model's predictions, etc.
-RESULTS_FOLDER_BIS = os.path.join(NEW_RESULTS_DIR, results_folder) # where to write new results
+RESULTS_FOLDER_READ = args.results_folder                        # where to load model's predictions, etc.
+DIRNAME = RESULTS_FOLDER_READ.split("/")[-2]
+NEW_RESULTS_FOLDER = args.new_results_folder
+RESULTS_FOLDER_WRITE = os.path.join(NEW_RESULTS_FOLDER, DIRNAME) # where to write new results
 
-
-if not os.path.exists(RESULTS_FOLDER_BIS):
-    os.mkdir(RESULTS_FOLDER_BIS)
+if not os.path.exists(RESULTS_FOLDER_WRITE):
+    os.mkdir(RESULTS_FOLDER_WRITE)
 
 
 # 2. Set parameters
-DATA_DIR = args.data_dir
+DATA_FOLDER = args.data_folder
 
-INPUTS = RESULTS_FOLDER.split("_")[1].split("/")[1] # "smiles", "selfies"
+INPUTS = DIRNAME.split("_")[0] # "smiles", "selfies"
 
 if INPUTS == "selfies":
     MODE = "with_selfies_"
 elif INPUTS == "smiles":
     MODE = ""
     
-DATA_TYPE = RESULTS_FOLDER.split("_")[2] # ["comp", "exp"]
+DATA_TYPE = DIRNAME.split("_")[1] # ["comp", "exp"]
 
 if DATA_TYPE == "comp":
     test_size = 8551
@@ -113,12 +111,13 @@ elif DATA_TYPE == "exp":
 elif DATA_TYPE == "comp2exp":
     test_size = 6000
     
-MODEL_NAME = RESULTS_FOLDER.split("_")[3] # ["ChemBERTa-5M-MTR", "ChemGPT-4.7M"]
+MODEL_NAME = DIRNAME.split("_")[2] # ["ChemBERTa-5M-MTR", "ChemGPT-4.7M"]
 
 print(f"Inputs:\t\t {INPUTS}")
 print(f"Data type:\t {DATA_TYPE}")
 print(f"Model:\t\t {MODEL_NAME}")
-print(f"Results foldler: {RESULTS_FOLDER}")
+print(f"Results folder: {RESULTS_FOLDER_READ}")
+
 
 
 # ------------- #
@@ -130,7 +129,7 @@ def plot_example(test_truths, test_preds, i, data_type, add_info="", conv=True, 
     """Plot i-th item of (test_truths, test_preds)"""
     
     # get 2D-Mol graph
-    test_dataset = load_from_disk(os.path.join(DATA_DIR, f"test_{MODE}{data_type}.hf"))
+    test_dataset = load_from_disk(os.path.join(DATA_FOLDER, f"test_{MODE}{data_type}.hf"))
     smiles = test_dataset[int(i)]["smiles"]
     mol = Chem.MolFromSmiles(smiles)
     mol = Draw.MolToImage(mol)
@@ -169,7 +168,7 @@ def plot_example(test_truths, test_preds, i, data_type, add_info="", conv=True, 
     plt.title(f"Model trained on {DATA_TYPE}. spectra, predictions on {data_type}. spectra")
 
     if filename is not None:
-        plt.savefig(f"{RESULTS_FOLDER_BIS}/{filename}")
+        plt.savefig(f"{RESULTS_FOLDER_WRITE}/{filename}")
     
     plt.show()
 
@@ -180,8 +179,8 @@ def plot_example(test_truths, test_preds, i, data_type, add_info="", conv=True, 
 # # data_type for predictions (the model is trained of DATA_TYPE (capital))
 
 # data_type = "comp"
-# test_preds = torch.load(os.path.join(RESULTS_FOLDER, f'test_preds_{data_type}.pt'))
-# test_truths = torch.load(os.path.join(RESULTS_FOLDER, f'test_truths_{data_type}.pt'))
+# test_preds = torch.load(os.path.join(RESULTS_FOLDER_READ, f'test_preds_{data_type}.pt'))
+# test_truths = torch.load(os.path.join(RESULTS_FOLDER_READ, f'test_truths_{data_type}.pt'))
 # for i in np.random.choice(test_size, 5):
 #     plot_example(test_truths, test_preds, i, data_type=DATA_TYPE)
 
@@ -192,7 +191,7 @@ def plot_example(test_truths, test_preds, i, data_type, add_info="", conv=True, 
 
 
 # 1. Load loss
-file = os.path.join(RESULTS_FOLDER, "log_history.pkl")
+file = os.path.join(RESULTS_FOLDER_READ, "log_history.pkl")
 
 history_d = {}
 
@@ -222,7 +221,7 @@ plt.xlabel("steps")
 plt.ylabel("SID")
 plt.title(f"{MODEL_NAME} ({DATA_TYPE}. spectra)")
 plt.legend()
-plt.savefig(f"{RESULTS_FOLDER_BIS}/loss.pdf", bbox_inches='tight')
+plt.savefig(f"{RESULTS_FOLDER_WRITE}/loss.pdf", bbox_inches='tight')
 
 
 # ------- #
@@ -239,8 +238,8 @@ for data_type in ["comp", "exp"]:
     
     metrics_d[data_type][MODEL_NAME] = {}
 
-    test_preds = torch.from_numpy(torch.load(os.path.join(RESULTS_FOLDER, f'test_preds_{data_type}.pt')))
-    test_truths = torch.from_numpy(torch.load(os.path.join(RESULTS_FOLDER, f'test_truths_{data_type}.pt')))
+    test_preds = torch.from_numpy(torch.load(os.path.join(RESULTS_FOLDER_READ, f'test_preds_{data_type}.pt')))
+    test_truths = torch.from_numpy(torch.load(os.path.join(RESULTS_FOLDER_READ, f'test_truths_{data_type}.pt')))
 
     metrics_d[data_type][MODEL_NAME]["test_preds"] = np.array(test_preds)
     metrics_d[data_type][MODEL_NAME]["test_truths"] = np.array(test_truths)
@@ -371,12 +370,12 @@ for data_type in ["comp", "exp"]:
     
     # Save metrics
     metrics_df = pd.DataFrame.from_dict(metrics_d[data_type], orient="index")
-    metrics_df.to_csv(f"{RESULTS_FOLDER_BIS}/metrics_test_{data_type}.csv")
+    metrics_df.to_csv(f"{RESULTS_FOLDER_WRITE}/metrics_test_{data_type}.csv")
     metrics_df_d[data_type] = metrics_df
     print(f"Metrics computed and saved for {MODEL_NAME} on {data_type} spectra.")
 
     # metrics_exp_df = pd.DataFrame.from_dict(metrics_d["exp"], orient="index")
-    # metrics_exp_df.to_csv(f"{RESULTS_FOLDER_BIS}/metrics_test_exp.csv")
+    # metrics_exp_df.to_csv(f"{RESULTS_FOLDER_WRITE}/metrics_test_exp.csv")
     # print(f"Metrics computed and saved for {MODEL_NAME} on {data_type} spectra.")
 
 
@@ -408,8 +407,8 @@ def plot_distribution(metrics, mean_std, metrics_name=None, model_name=None, dat
 
     plt.xlabel(f"{metrics_name}")
     plt.legend()
-    plt.title(f"{model_name}\n train: {DATA_TYPE}. data, results: {data_type}. test set")
-    plt.savefig(f"{RESULTS_FOLDER_BIS}/{metrics_name}_test_{data_type}.pdf", bbox_inches='tight')
+    plt.title(f"{model_name}\n Train: {DATA_TYPE}. Test: {data_type}.")
+    plt.savefig(f"{RESULTS_FOLDER_WRITE}/{metrics_name}_test_{data_type}.pdf", bbox_inches='tight')
 
 
 # 2. Compute distributions

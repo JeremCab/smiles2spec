@@ -22,9 +22,8 @@ for f in "${dirs[@]}"; do
 
     TRANSFORMERS_NO_PROGRESS_BAR=true python compute_results.py \
         --results_folder "$f"\
-        --results_dir "/storage/smiles2spec_models" \
-        --data_dir "/storage/smiles2spec_data" \
-        --new_results_dir "/notebooks/smiles2spec/notebooks/results"
+        --data_folder "/storage/smiles2spec_data" \
+        --new_results_folder "/notebooks/smiles2spec/notebooks/results"
 
     echo "Results computed."
     echo

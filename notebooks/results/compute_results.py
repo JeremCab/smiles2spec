@@ -18,6 +18,8 @@ import os
 import pickle
 import json
 
+from tqdm import tqdm
+
 import argparse
 
 import pandas as pd
@@ -38,6 +40,7 @@ from transformers.data.data_collator import DataCollatorWithPadding
 from transformers.modeling_outputs import SequenceClassifierOutput
 
 from rdkit import Chem # type: ignore
+from rdkit.Chem import Draw
 
 import matplotlib.pyplot as plt
 from matplotlib.offsetbox import (OffsetImage, AnnotationBbox)
@@ -130,7 +133,7 @@ def plot_example(test_truths, test_preds, i, data_type, add_info="", conv=True, 
     test_dataset = load_from_disk(os.path.join(DATA_DIR, f"test_{MODE}{data_type}.hf"))
     smiles = test_dataset[int(i)]["smiles"]
     mol = Chem.MolFromSmiles(smiles)
-    mol = Chem.Draw.MolToImage(mol)
+    mol = Draw.MolToImage(mol)
     
     # Plot
     fig, ax = plt.subplots(figsize=(10, 4))
@@ -412,19 +415,18 @@ def plot_distribution(metrics, mean_std, metrics_name=None, model_name=None, dat
 # 2. Compute distributions
 for data_type in ["comp", "exp"]:
 
-    for model_name, values in metrics_d[data_type].items():
 
-        # for metrics_name in ["MSE", "RMSE", "TMSE", "SID", "SIS"]:
-        for metrics_name in ["SIS"]:
+    # for metrics_name in ["MSE", "RMSE", "TMSE", "SID", "SIS"]:
+    for metrics_name in ["SIS"]:
 
-            metrics = metrics_d[data_type][model_name][metrics_name+"s"]
-            mean_std = metrics_d[data_type][model_name][metrics_name]
+        metrics = metrics_d[data_type][MODEL_NAME][metrics_name+"s"]
+        mean_std = metrics_d[data_type][MODEL_NAME][metrics_name]
 
-            plot_distribution(metrics=metrics, 
-                              mean_std=mean_std, 
-                              metrics_name=metrics_name, 
-                              model_name=model_name,
-                              data_type=data_type)
+        plot_distribution(metrics=metrics, 
+                          mean_std=mean_std, 
+                          metrics_name=metrics_name, 
+                          model_name=MODEL_NAME,
+                          data_type=data_type)
 
 
 # ------------------------- #
@@ -435,40 +437,38 @@ GAUSSIAN_CONV = True
 
 for data_type in ["comp", "exp"]:
     
-    for model_name, values in metrics_d[data_type].items():
+    # print(model_name, data_type)
 
-        print(model_name, data_type)
+    test_truths = metrics_d[data_type][MODEL_NAME]["test_truths"]
+    test_preds = metrics_d[data_type][MODEL_NAME]["test_preds"]
+    if GAUSSIAN_CONV:
+        test_preds = gaussian_filter1d(test_preds, 5) # plot smoothed predictions if preferred
 
-        test_truths = metrics_d[data_type][model_name]["test_truths"]
-        test_preds = metrics_d[data_type][model_name]["test_preds"]
-        if GAUSSIAN_CONV:
-            test_preds = gaussian_filter1d(test_preds, 5) # plot smoothed predictions if preferred
+    SISs = metrics_d[data_type][MODEL_NAME]["SISs"]
+    percentiles = []
 
-        SISs = metrics_d[data_type][model_name]["SISs"]
-        percentiles = []
+    for p in range(10, 100, 10):
+        percentiles.append(np.percentile(SISs, p))
 
-        for p in range(10, 100, 10):
-            percentiles.append(np.percentile(SISs, p))
+    lb = 0
 
-        lb = 0
+    for i in tqdm(range(len(percentiles))): 
 
-        for i in range(len(percentiles)): 
+        # get percentile
+        ub = percentiles[i]
+        mask = (SISs >= lb) & (SISs <= ub)
+        lb = percentiles[i]
 
-            # get percentile
-            ub = percentiles[i]
-            mask = (SISs >= lb) & (SISs <= ub)
-            lb = percentiles[i]
+        # plot example from percentile 
+        indices = np.where(mask==True)[0]
+        index = np.random.choice(indices, size=1)[0]
 
-            # plot example from percentile 
-            indices = np.where(mask==True)[0]
-            index = np.random.choice(indices, size=1)[0]
+        p = i*10 + 10
+        # print(f"example in percentile {p}")
+        filename = f"{MODEL_NAME}_{data_type}_percentile_{p}.png"
+        add_info = f"\nSIS: {SISs[index]:.4f}"
 
-            p = i*10 + 10
-            print(f"example in percentile {p}")
-            filename = f"{model_name}_{data_type}_percentile_{p}.png"
-            add_info = f"\nSIS: {SISs[index]:.4f}"
-            
-            filename = f"example_p_{p}.pdf"
-            
-            plot_example(test_truths, test_preds, index, data_type, add_info, filename=filename)
+        filename = f"example_p_{p}.pdf"
 
+        plot_example(test_truths, test_preds, index, data_type, add_info, filename=filename)
+        plt.close()

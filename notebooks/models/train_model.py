@@ -230,71 +230,75 @@ num_labels = len(train_dataset[0]["labels"])
 num_labels
 
 
+
 class Smile2Spec(nn.Module):
     """A Smile2Spec model contains a LLM head, followed by a Feed Forward MLP."""
     
-    def __init__(self, args_d):
+    def __init__(self, args):
         """
         Initializes the Smile2Spec model.
-        :param args_d: argument for building the model."""
+        :param args: argument for building the model."""
 
         super(Smile2Spec, self).__init__()
 
         # # Create LLM head. # xxx old
-        # self.LLM = AutoModelForSequenceClassification.from_pretrained(args_d.get('model_name'), 
-        #                                                               num_labels=args_d.get('ffn_output_dim'))
-        #                    # xxx old
-        # if args_d.get('model_name').startswith("ncfrey/ChemGPT"):
-        #     self.LLM.config.pad_token_id = self.LLM.config.eos_token_id
+        # self.LLM = AutoModelForSequenceClassification.from_pretrained(args.get('model_name'), 
+        #                                                               num_labels=args.get('ffn_output_dim'))
+        
+        if args.get('model_name').startswith("ncfrey/ChemGPT"): # xxx
+            self.LLM.config.pad_token_id = self.LLM.config.eos_token_id
         
         # Create output objects
-        self.output_activation = args_d.get('output_activation')
-        self.norm_range = args_d.get('norm_range')
+        self.output_activation = args.get('output_activation')
+        self.norm_range = args.get('norm_range')
 
         # Create FFN params
-        dropout = nn.Dropout(args_d.get('dropout'))
-        activation = args_d.get('activation')
+        dropout = nn.Dropout(args.get('dropout'))
+        activation = args.get('activation')
 
         # Create LLM and FFN layers
-        if args_d.get('ffn_num_layers') == 0: # xxx new
+        if args.get('ffn_num_layers') == 0: # xxx new
             # xxx new
-            self.LLM = AutoModelForSequenceClassification.from_pretrained(args_d.get('model_name'), 
-                                                                          num_labels=args_d.get('ffn_output_dim'))
-            if args_d.get('model_name').startswith("ncfrey/ChemGPT"):
-                self.LLM.config.pad_token_id = self.LLM.config.eos_token_id
-                
-            ffn = []
+            self.LLM = AutoModelForSequenceClassification.from_pretrained(args.get('model_name'), 
+                                                                          num_labels=args.get('ffn_output_dim'))
+            ffn = [activation] # xxx new
         
-        if args_d.get('ffn_num_layers') >= 1:
+        if args.get('ffn_num_layers') >= 1:
             
             # xxx new
-            self.LLM = AutoModelForSequenceClassification.from_pretrained(args_d.get('model_name'), 
-                                                                          num_labels=args_d.get('ffn_input_dim'))
-            if args_d.get('model_name').startswith("ncfrey/ChemGPT"):
-                self.LLM.config.pad_token_id = self.LLM.config.eos_token_id
+            self.LLM = AutoModelForSequenceClassification.from_pretrained(args.get('model_name'), 
+                                                                          # xxx new architecture
+                                                                          num_labels=args.get('ffn_hidden_size'))
             
-            exactly_one_layer = args_d.get('ffn_num_layers') == 1
-            output_dim = args_d.get('ffn_output_dim') if exactly_one_layer else args_d.get('ffn_hidden_dim')
+            exactly_one_layer = args.get('ffn_num_layers') == 1
+            output_dim = args.get('ffn_output_dim') if exactly_one_layer else args.get('ffn_hidden_size')
             
             ffn = [
-                dropout,
-                nn.Linear(args_d.get('ffn_input_dim'), output_dim)
+                activation, # xxx new
+                # dropout,
+                nn.Linear(args.get('ffn_hidden_size'), output_dim), # xxx new architecture
+                dropout,    # xxx new
+                activation, # xxx new
                 ]
             
             # xxx new
-            if args_d.get('ffn_num_layers') > 1:
+            if args.get('ffn_num_layers') > 1:
             
-                for _ in range(args_d.get('ffn_num_layers') - 2):
+                for _ in range(args.get('ffn_num_layers') - 2):
                     ffn.extend([
-                        activation,
-                        dropout,
-                        nn.Linear(args_d.get('ffn_hidden_dim'), args_d.get('ffn_hidden_dim'))
+                        # activation,
+                        # dropout,
+                        nn.Linear(args.get('ffn_hidden_size'), args.get('ffn_hidden_size')),
+                        dropout,   # xxx new
+                        activation # xxx new
                         ])
 
                 ffn.extend([
-                    activation,
-                    dropout,
-                    nn.Linear(args_d.get('ffn_hidden_dim'), args_d.get('ffn_output_dim'))
+                    # activation,
+                    # dropout,
+                    nn.Linear(args.get('ffn_hidden_size'), args.get('ffn_output_dim')),
+                    dropout,   # xxx new
+                    activation # xxx new
                 ])
 
         self.ffn = nn.Sequential(*ffn)
@@ -312,7 +316,7 @@ class Smile2Spec(nn.Module):
         LLM_output = self.LLM(input_ids, attention_mask=attention_mask).logits # type: ignore
 
         # Compute ffn output
-        if args_d.get('ffn_num_layers') > 0 :
+        if args.get('ffn_num_layers') > 0 :
             output = self.ffn(LLM_output) 
         else:
             output = LLM_output

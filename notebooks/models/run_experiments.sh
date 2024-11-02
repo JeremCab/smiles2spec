@@ -3,7 +3,7 @@
 export TQDM_DISABLE=1
 
 # "DeepChem/ChemBERTa-5M-MTR" "ncfrey/ChemGPT-4.7M"
-models=("DeepChem/ChemBERTa-5M-MTR") # "DeepChem/ChemBERTa-5M-MTR"
+models=("ncfrey/ChemGPT-4.7M") # "DeepChem/ChemBERTa-5M-MTR"
 
 data="comp"  # exp remains XXX
 nb_epochs=10 # 5 epochs are too few

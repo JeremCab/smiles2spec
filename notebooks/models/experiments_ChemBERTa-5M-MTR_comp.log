@@ -275,3 +275,67 @@ Total Trainable Params. :  22,437,241
 Predictions saved.
 *** Experiment finished ***
 
+2024-11-03 12:18:33.759342: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2024-11-03 12:18:33.759643: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2024-11-03 12:18:33.908721: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2024-11-03 12:18:34.198458: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-11-03 12:18:37.029386: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+*** Start experiment ***
+Inputs:    smiles
+Data type: comp
+Model:     DeepChem/ChemBERTa-5M-MTR
+Results folder: /storage/smiles2spec_models/smiles_comp_ChemBERTa-5M-MTR_FFNN-3-200-2200
+Traceback (most recent call last):
+  File "/notebooks/SMILES_to_SPEC/notebooks/models/train_model.py", line 363, in <module>
+    model = Smile2Spec(args_d)
+            ^^^^^^^^^^^^^^^^^^
+  File "/notebooks/SMILES_to_SPEC/notebooks/models/train_model.py", line 269, in __init__
+    self.LLM = AutoModelForSequenceClassification.from_pretrained(args.get('model_name'), 
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/transformers/models/auto/auto_factory.py", line 526, in from_pretrained
+    config, kwargs = AutoConfig.from_pretrained(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/transformers/models/auto/configuration_auto.py", line 1030, in from_pretrained
+    return config_class.from_dict(config_dict, **unused_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/transformers/configuration_utils.py", line 736, in from_dict
+    setattr(config, key, value)
+  File "/usr/local/lib/python3.11/dist-packages/transformers/configuration_utils.py", line 197, in __setattr__
+    super().__setattr__(key, value)
+  File "/usr/local/lib/python3.11/dist-packages/transformers/configuration_utils.py", line 342, in num_labels
+    self.id2label = {i: f"LABEL_{i}" for i in range(num_labels)}
+                                              ^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+2024-11-03 12:19:13.943641: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2024-11-03 12:19:13.943741: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2024-11-03 12:19:13.945466: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2024-11-03 12:19:13.955199: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-11-03 12:19:15.323749: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+*** Start experiment ***
+Inputs:    smiles
+Data type: comp
+Model:     DeepChem/ChemBERTa-5M-MTR
+Results folder: /storage/smiles2spec_models/smiles_comp_ChemBERTa-5M-MTR_FFNN-5-200-2200
+Traceback (most recent call last):
+  File "/notebooks/SMILES_to_SPEC/notebooks/models/train_model.py", line 363, in <module>
+    model = Smile2Spec(args_d)
+            ^^^^^^^^^^^^^^^^^^
+  File "/notebooks/SMILES_to_SPEC/notebooks/models/train_model.py", line 269, in __init__
+    self.LLM = AutoModelForSequenceClassification.from_pretrained(args.get('model_name'), 
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/transformers/models/auto/auto_factory.py", line 526, in from_pretrained
+    config, kwargs = AutoConfig.from_pretrained(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/transformers/models/auto/configuration_auto.py", line 1030, in from_pretrained
+    return config_class.from_dict(config_dict, **unused_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/transformers/configuration_utils.py", line 736, in from_dict
+    setattr(config, key, value)
+  File "/usr/local/lib/python3.11/dist-packages/transformers/configuration_utils.py", line 197, in __setattr__
+    super().__setattr__(key, value)
+  File "/usr/local/lib/python3.11/dist-packages/transformers/configuration_utils.py", line 342, in num_labels
+    self.id2label = {i: f"LABEL_{i}" for i in range(num_labels)}
+                                              ^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer

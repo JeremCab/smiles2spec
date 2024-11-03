@@ -268,15 +268,15 @@ class Smile2Spec(nn.Module):
             # xxx new
             self.LLM = AutoModelForSequenceClassification.from_pretrained(args.get('model_name'), 
                                                                           # xxx new architecture
-                                                                          num_labels=args.get('ffn_hidden_size'))
+                                                                          num_labels=args.get('ffn_hidden_dim'))
             
             exactly_one_layer = args.get('ffn_num_layers') == 1
-            output_dim = args.get('ffn_output_dim') if exactly_one_layer else args.get('ffn_hidden_size')
+            output_dim = args.get('ffn_output_dim') if exactly_one_layer else args.get('ffn_hidden_dim')
             
             ffn = [
                 activation, # xxx new
                 # dropout,
-                nn.Linear(args.get('ffn_hidden_size'), output_dim), # xxx new architecture
+                nn.Linear(args.get('ffn_hidden_dim'), output_dim), # xxx new architecture
                 dropout,    # xxx new
                 activation, # xxx new
                 ]
@@ -288,7 +288,7 @@ class Smile2Spec(nn.Module):
                     ffn.extend([
                         # activation,
                         # dropout,
-                        nn.Linear(args.get('ffn_hidden_size'), args.get('ffn_hidden_size')),
+                        nn.Linear(args.get('ffn_hidden_dim'), args.get('ffn_hidden_dim')),
                         dropout,   # xxx new
                         activation # xxx new
                         ])
@@ -296,7 +296,7 @@ class Smile2Spec(nn.Module):
                 ffn.extend([
                     # activation,
                     # dropout,
-                    nn.Linear(args.get('ffn_hidden_size'), args.get('ffn_output_dim')),
+                    nn.Linear(args.get('ffn_hidden_dim'), args.get('ffn_output_dim')),
                     dropout,   # xxx new
                     activation # xxx new
                 ])

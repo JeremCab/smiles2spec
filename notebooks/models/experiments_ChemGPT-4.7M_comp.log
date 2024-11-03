@@ -250,3 +250,24 @@ Traceback (most recent call last):
   File "/usr/local/lib/python3.9/dist-packages/torch/autograd/__init__.py", line 173, in backward
     Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
 KeyboardInterrupt
+2024-11-02 13:41:37.479268: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2024-11-02 13:41:37.479335: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2024-11-02 13:41:37.482932: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2024-11-02 13:41:37.496261: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-11-02 13:41:39.164184: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+*** Start experiment ***
+Inputs:    selfies
+Data type: comp
+Model:     ncfrey/ChemGPT-4.7M
+Results folder: /storage/smiles2spec_models/selfies_comp_ChemGPT-4.7M_FFNN-5-200-2200
+Traceback (most recent call last):
+  File "/notebooks/SMILES_to_SPEC/notebooks/models/train_model.py", line 363, in <module>
+    model = Smile2Spec(args_d)
+            ^^^^^^^^^^^^^^^^^^
+  File "/notebooks/SMILES_to_SPEC/notebooks/models/train_model.py", line 249, in __init__
+    self.LLM.config.pad_token_id = self.LLM.config.eos_token_id
+                                   ^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1695, in __getattr__
+    raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
+AttributeError: 'Smile2Spec' object has no attribute 'LLM'

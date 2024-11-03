@@ -339,3 +339,330 @@ Traceback (most recent call last):
     self.id2label = {i: f"LABEL_{i}" for i in range(num_labels)}
                                               ^^^^^^^^^^^^^^^^^
 TypeError: 'NoneType' object cannot be interpreted as an integer
+2024-11-03 12:33:49.549427: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2024-11-03 12:33:49.549576: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2024-11-03 12:33:49.551289: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2024-11-03 12:33:49.561189: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-11-03 12:33:50.979459: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+/usr/local/lib/python3.11/dist-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at DeepChem/ChemBERTa-5M-MTR and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+*** Start experiment ***
+Inputs:    smiles
+Data type: comp
+Model:     DeepChem/ChemBERTa-5M-MTR
+Results folder: /storage/smiles2spec_models/smiles_comp_ChemBERTa-5M-MTR_FFNN-3-200-2200
+Total Params. :  17,922,841
+Total Trainable Params. :  17,922,841
+[2024-11-03 12:34:13,376] [INFO] [real_accelerator.py:158:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+Traceback (most recent call last):
+  File "/notebooks/SMILES_to_SPEC/notebooks/models/train_model.py", line 435, in <module>
+    results = trainer.train()
+              ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/transformers/trainer.py", line 2052, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/transformers/trainer.py", line 2388, in _inner_training_loop
+    tr_loss_step = self.training_step(model, inputs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/transformers/trainer.py", line 3485, in training_step
+    loss = self.compute_loss(model, inputs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/notebooks/SMILES_to_SPEC/notebooks/models/train_model.py", line 380, in compute_loss
+    outputs = model(**inputs)
+              ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/notebooks/SMILES_to_SPEC/notebooks/models/train_model.py", line 319, in forward
+    if args.get('ffn_num_layers') > 0 :
+       ^^^^^^^^
+AttributeError: 'Namespace' object has no attribute 'get'
+2024-11-03 12:34:22.298441: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2024-11-03 12:34:22.298535: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2024-11-03 12:34:22.300287: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2024-11-03 12:34:22.309126: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-11-03 12:34:23.627610: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+/usr/local/lib/python3.11/dist-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at DeepChem/ChemBERTa-5M-MTR and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+*** Start experiment ***
+Inputs:    smiles
+Data type: comp
+Model:     DeepChem/ChemBERTa-5M-MTR
+Results folder: /storage/smiles2spec_models/smiles_comp_ChemBERTa-5M-MTR_FFNN-5-200-2200
+Total Params. :  27,607,241
+Total Trainable Params. :  27,607,241
+[2024-11-03 12:34:44,441] [INFO] [real_accelerator.py:158:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+Traceback (most recent call last):
+  File "/notebooks/SMILES_to_SPEC/notebooks/models/train_model.py", line 435, in <module>
+    results = trainer.train()
+              ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/transformers/trainer.py", line 2052, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/transformers/trainer.py", line 2388, in _inner_training_loop
+    tr_loss_step = self.training_step(model, inputs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/transformers/trainer.py", line 3485, in training_step
+    loss = self.compute_loss(model, inputs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/notebooks/SMILES_to_SPEC/notebooks/models/train_model.py", line 380, in compute_loss
+    outputs = model(**inputs)
+              ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/notebooks/SMILES_to_SPEC/notebooks/models/train_model.py", line 319, in forward
+    if args.get('ffn_num_layers') > 0 :
+       ^^^^^^^^
+AttributeError: 'Namespace' object has no attribute 'get'
+2024-11-03 12:45:15.222168: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2024-11-03 12:45:15.222243: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2024-11-03 12:45:15.223684: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2024-11-03 12:45:15.232228: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-11-03 12:45:16.742164: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+/usr/local/lib/python3.11/dist-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at DeepChem/ChemBERTa-5M-MTR and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+*** Start experiment ***
+Inputs:    smiles
+Data type: comp
+Model:     DeepChem/ChemBERTa-5M-MTR
+Results folder: /storage/smiles2spec_models/smiles_comp_ChemBERTa-5M-MTR_FFNN-3-200-2200
+Total Params. :  17,922,841
+Total Trainable Params. :  17,922,841
+[2024-11-03 12:45:39,073] [INFO] [real_accelerator.py:158:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+Traceback (most recent call last):
+  File "/notebooks/SMILES_to_SPEC/notebooks/models/train_model.py", line 434, in <module>
+    results = trainer.train()
+              ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/transformers/trainer.py", line 2052, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/transformers/trainer.py", line 2388, in _inner_training_loop
+    tr_loss_step = self.training_step(model, inputs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/transformers/trainer.py", line 3485, in training_step
+    loss = self.compute_loss(model, inputs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/notebooks/SMILES_to_SPEC/notebooks/models/train_model.py", line 379, in compute_loss
+    outputs = model(**inputs)
+              ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/notebooks/SMILES_to_SPEC/notebooks/models/train_model.py", line 318, in forward
+    if args.get('ffn_num_layers') > 0 :
+       ^^^^^^^^
+AttributeError: 'Namespace' object has no attribute 'get'
+2024-11-03 12:45:46.333767: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2024-11-03 12:45:46.333859: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2024-11-03 12:45:46.335417: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2024-11-03 12:45:46.344786: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-11-03 12:45:47.821760: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+/usr/local/lib/python3.11/dist-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at DeepChem/ChemBERTa-5M-MTR and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+
+*** Start experiment ***
+Inputs:    smiles
+Data type: comp
+Model:     DeepChem/ChemBERTa-5M-MTR
+Results folder: /storage/smiles2spec_models/smiles_comp_ChemBERTa-5M-MTR_FFNN-5-200-2200
+Total Params. :  27,607,241
+Total Trainable Params. :  27,607,241
+[2024-11-03 12:46:11,250] [INFO] [real_accelerator.py:158:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+Traceback (most recent call last):
+  File "/notebooks/SMILES_to_SPEC/notebooks/models/train_model.py", line 434, in <module>
+    results = trainer.train()
+              ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/transformers/trainer.py", line 2052, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/transformers/trainer.py", line 2388, in _inner_training_loop
+    tr_loss_step = self.training_step(model, inputs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/transformers/trainer.py", line 3485, in training_step
+    loss = self.compute_loss(model, inputs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/notebooks/SMILES_to_SPEC/notebooks/models/train_model.py", line 379, in compute_loss
+    outputs = model(**inputs)
+              ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1518, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/torch/nn/modules/module.py", line 1527, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/notebooks/SMILES_to_SPEC/notebooks/models/train_model.py", line 318, in forward
+    if args.get('ffn_num_layers') > 0 :
+       ^^^^^^^^
+AttributeError: 'Namespace' object has no attribute 'get'
+2024-11-03 12:57:56.373513: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2024-11-03 12:57:56.373601: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2024-11-03 12:57:56.375216: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2024-11-03 12:57:56.384661: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-11-03 12:57:57.803871: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+/usr/local/lib/python3.11/dist-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at DeepChem/ChemBERTa-5M-MTR and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+
+*** Start experiment ***
+Inputs:    smiles
+Data type: comp
+Model:     DeepChem/ChemBERTa-5M-MTR
+Results folder: /storage/smiles2spec_models/smiles_comp_ChemBERTa-5M-MTR_FFNN-3-200-2200
+Total Params. :  17,922,841
+Total Trainable Params. :  17,922,841
+[2024-11-03 12:58:18,209] [INFO] [real_accelerator.py:158:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+{'loss': 15410.7887, 'grad_norm': 0.9357456564903259, 'learning_rate': 1.8709073900841907e-05, 'epoch': 0.37}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.2077, 'eval_samples_per_second': 1186.374, 'eval_steps_per_second': 18.591, 'epoch': 0.37}
+{'loss': 15388.6338, 'grad_norm': 1.238325834274292, 'learning_rate': 3.7418147801683815e-05, 'epoch': 0.75}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.0229, 'eval_samples_per_second': 1217.58, 'eval_steps_per_second': 19.08, 'epoch': 0.75}
+{'loss': 15389.1287, 'grad_norm': 0.3537118136882782, 'learning_rate': 4.9319197588608256e-05, 'epoch': 1.12}
+{'eval_loss': 15372.990234375, 'eval_runtime': 8.1322, 'eval_samples_per_second': 1051.502, 'eval_steps_per_second': 16.478, 'epoch': 1.12}
+{'loss': 15387.92, 'grad_norm': 0.5700178146362305, 'learning_rate': 4.7240411599625824e-05, 'epoch': 1.5}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.5995, 'eval_samples_per_second': 1125.206, 'eval_steps_per_second': 17.633, 'epoch': 1.5}
+{'loss': 15385.6462, 'grad_norm': 0.0, 'learning_rate': 4.5161625610643385e-05, 'epoch': 1.87}
+{'eval_loss': 15372.990234375, 'eval_runtime': 8.0246, 'eval_samples_per_second': 1065.602, 'eval_steps_per_second': 16.699, 'epoch': 1.87}
+{'loss': 15386.905, 'grad_norm': 0.0, 'learning_rate': 4.308283962166095e-05, 'epoch': 2.25}
+{'eval_loss': 15372.990234375, 'eval_runtime': 8.3664, 'eval_samples_per_second': 1022.064, 'eval_steps_per_second': 16.016, 'epoch': 2.25}
+{'loss': 15389.9737, 'grad_norm': 0.0, 'learning_rate': 4.100405363267852e-05, 'epoch': 2.62}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.3597, 'eval_samples_per_second': 1161.87, 'eval_steps_per_second': 18.207, 'epoch': 2.62}
+{'loss': 15389.255, 'grad_norm': 0.0, 'learning_rate': 3.892526764369608e-05, 'epoch': 2.99}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.3534, 'eval_samples_per_second': 1162.866, 'eval_steps_per_second': 18.223, 'epoch': 2.99}
+{'loss': 15388.4725, 'grad_norm': 0.0, 'learning_rate': 3.684648165471365e-05, 'epoch': 3.37}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.916, 'eval_samples_per_second': 1080.214, 'eval_steps_per_second': 16.928, 'epoch': 3.37}
+{'loss': 15387.7975, 'grad_norm': 0.3703211843967438, 'learning_rate': 3.476769566573121e-05, 'epoch': 3.74}
+{'eval_loss': 15372.990234375, 'eval_runtime': 8.0577, 'eval_samples_per_second': 1061.226, 'eval_steps_per_second': 16.63, 'epoch': 3.74}
+{'loss': 15387.5475, 'grad_norm': 0.0, 'learning_rate': 3.268890967674878e-05, 'epoch': 4.12}
+{'eval_loss': 15372.990234375, 'eval_runtime': 8.181, 'eval_samples_per_second': 1045.226, 'eval_steps_per_second': 16.379, 'epoch': 4.12}
+{'loss': 15387.9287, 'grad_norm': 0.0, 'learning_rate': 3.061012368776635e-05, 'epoch': 4.49}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.9126, 'eval_samples_per_second': 1080.682, 'eval_steps_per_second': 16.935, 'epoch': 4.49}
+{'loss': 15387.9525, 'grad_norm': 0.0, 'learning_rate': 2.853133769878391e-05, 'epoch': 4.86}
+{'eval_loss': 15372.990234375, 'eval_runtime': 6.9947, 'eval_samples_per_second': 1222.505, 'eval_steps_per_second': 19.157, 'epoch': 4.86}
+{'loss': 15387.1562, 'grad_norm': 0.0, 'learning_rate': 2.6452551709801478e-05, 'epoch': 5.24}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.7611, 'eval_samples_per_second': 1101.774, 'eval_steps_per_second': 17.266, 'epoch': 5.24}
+{'loss': 15386.7038, 'grad_norm': 0.0, 'learning_rate': 2.4373765720819042e-05, 'epoch': 5.61}
+{'eval_loss': 15372.990234375, 'eval_runtime': 8.1645, 'eval_samples_per_second': 1047.335, 'eval_steps_per_second': 16.412, 'epoch': 5.61}
+{'loss': 15390.34, 'grad_norm': 0.0, 'learning_rate': 2.2294979731836607e-05, 'epoch': 5.99}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.7527, 'eval_samples_per_second': 1102.963, 'eval_steps_per_second': 17.284, 'epoch': 5.99}
+{'loss': 15385.98, 'grad_norm': 0.0, 'learning_rate': 2.0216193742854175e-05, 'epoch': 6.36}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.0503, 'eval_samples_per_second': 1212.849, 'eval_steps_per_second': 19.006, 'epoch': 6.36}
+{'loss': 15387.31, 'grad_norm': 0.0, 'learning_rate': 1.813740775387174e-05, 'epoch': 6.74}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.7663, 'eval_samples_per_second': 1101.041, 'eval_steps_per_second': 17.254, 'epoch': 6.74}
+{'loss': 15390.0375, 'grad_norm': 0.0, 'learning_rate': 1.6058621764889305e-05, 'epoch': 7.11}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.3798, 'eval_samples_per_second': 1158.697, 'eval_steps_per_second': 18.158, 'epoch': 7.11}
+{'loss': 15388.6175, 'grad_norm': 0.0, 'learning_rate': 1.3979835775906871e-05, 'epoch': 7.48}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.8918, 'eval_samples_per_second': 1083.523, 'eval_steps_per_second': 16.98, 'epoch': 7.48}
+{'loss': 15388.8762, 'grad_norm': 0.0, 'learning_rate': 1.1901049786924437e-05, 'epoch': 7.86}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.2637, 'eval_samples_per_second': 1177.229, 'eval_steps_per_second': 18.448, 'epoch': 7.86}
+{'loss': 15386.2425, 'grad_norm': 0.0, 'learning_rate': 9.822263797942002e-06, 'epoch': 8.23}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.9229, 'eval_samples_per_second': 1079.273, 'eval_steps_per_second': 16.913, 'epoch': 8.23}
+{'loss': 15389.62, 'grad_norm': 0.0, 'learning_rate': 7.743477808959569e-06, 'epoch': 8.61}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.9675, 'eval_samples_per_second': 1073.235, 'eval_steps_per_second': 16.818, 'epoch': 8.61}
+{'loss': 15387.02, 'grad_norm': 0.0, 'learning_rate': 5.664691819977134e-06, 'epoch': 8.98}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.7373, 'eval_samples_per_second': 1105.172, 'eval_steps_per_second': 17.319, 'epoch': 8.98}
+{'loss': 15391.2875, 'grad_norm': 0.0, 'learning_rate': 3.585905830994699e-06, 'epoch': 9.35}
+{'eval_loss': 15372.990234375, 'eval_runtime': 9.1367, 'eval_samples_per_second': 935.896, 'eval_steps_per_second': 14.666, 'epoch': 9.35}
+{'loss': 15388.4013, 'grad_norm': 0.0, 'learning_rate': 1.5071198420122647e-06, 'epoch': 9.73}
+{'eval_loss': 15372.990234375, 'eval_runtime': 8.2539, 'eval_samples_per_second': 1035.99, 'eval_steps_per_second': 16.235, 'epoch': 9.73}
+{'train_runtime': 1881.7021, 'train_samples_per_second': 363.522, 'train_steps_per_second': 5.681, 'train_loss': 15388.876847521047, 'epoch': 10.0}
+Predictions saved.
+*** Experiment finished ***
+
+2024-11-03 13:30:03.880114: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2024-11-03 13:30:03.880198: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2024-11-03 13:30:03.881998: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2024-11-03 13:30:03.891133: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-11-03 13:30:05.202427: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+/usr/local/lib/python3.11/dist-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at DeepChem/ChemBERTa-5M-MTR and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+
+*** Start experiment ***
+Inputs:    smiles
+Data type: comp
+Model:     DeepChem/ChemBERTa-5M-MTR
+Results folder: /storage/smiles2spec_models/smiles_comp_ChemBERTa-5M-MTR_FFNN-5-200-2200
+Total Params. :  27,607,241
+Total Trainable Params. :  27,607,241
+[2024-11-03 13:30:29,416] [INFO] [real_accelerator.py:158:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+{'loss': 15410.4175, 'grad_norm': 1.1187257766723633, 'learning_rate': 1.8709073900841907e-05, 'epoch': 0.37}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.3907, 'eval_samples_per_second': 1156.99, 'eval_steps_per_second': 18.131, 'epoch': 0.37}
+{'loss': 15388.6325, 'grad_norm': 0.30834540724754333, 'learning_rate': 3.7418147801683815e-05, 'epoch': 0.75}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.5535, 'eval_samples_per_second': 1132.058, 'eval_steps_per_second': 17.74, 'epoch': 0.75}
+{'loss': 15389.1287, 'grad_norm': 0.4185009300708771, 'learning_rate': 4.9319197588608256e-05, 'epoch': 1.12}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.9725, 'eval_samples_per_second': 1072.555, 'eval_steps_per_second': 16.808, 'epoch': 1.12}
+{'loss': 15387.9212, 'grad_norm': 0.4346732795238495, 'learning_rate': 4.7240411599625824e-05, 'epoch': 1.5}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.1798, 'eval_samples_per_second': 1190.983, 'eval_steps_per_second': 18.664, 'epoch': 1.5}
+{'loss': 15385.6462, 'grad_norm': 0.0, 'learning_rate': 4.5161625610643385e-05, 'epoch': 1.87}
+{'eval_loss': 15372.990234375, 'eval_runtime': 8.167, 'eval_samples_per_second': 1047.012, 'eval_steps_per_second': 16.407, 'epoch': 1.87}
+{'loss': 15386.905, 'grad_norm': 0.0, 'learning_rate': 4.308283962166095e-05, 'epoch': 2.25}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.6793, 'eval_samples_per_second': 1113.508, 'eval_steps_per_second': 17.449, 'epoch': 2.25}
+{'loss': 15389.9737, 'grad_norm': 0.0, 'learning_rate': 4.100405363267852e-05, 'epoch': 2.62}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.5538, 'eval_samples_per_second': 1132.007, 'eval_steps_per_second': 17.739, 'epoch': 2.62}
+{'loss': 15389.2537, 'grad_norm': 0.0, 'learning_rate': 3.892526764369608e-05, 'epoch': 2.99}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.2826, 'eval_samples_per_second': 1174.176, 'eval_steps_per_second': 18.4, 'epoch': 2.99}
+{'loss': 15388.4725, 'grad_norm': 0.0, 'learning_rate': 3.684648165471365e-05, 'epoch': 3.37}
+{'eval_loss': 15372.990234375, 'eval_runtime': 8.3991, 'eval_samples_per_second': 1018.088, 'eval_steps_per_second': 15.954, 'epoch': 3.37}
+{'loss': 15387.7975, 'grad_norm': 0.0, 'learning_rate': 3.476769566573121e-05, 'epoch': 3.74}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.0355, 'eval_samples_per_second': 1215.409, 'eval_steps_per_second': 19.046, 'epoch': 3.74}
+{'loss': 15387.5475, 'grad_norm': 0.0, 'learning_rate': 3.268890967674878e-05, 'epoch': 4.12}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.5866, 'eval_samples_per_second': 1127.113, 'eval_steps_per_second': 17.663, 'epoch': 4.12}
+{'loss': 15387.9287, 'grad_norm': 0.0, 'learning_rate': 3.061012368776635e-05, 'epoch': 4.49}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.6321, 'eval_samples_per_second': 1120.399, 'eval_steps_per_second': 17.557, 'epoch': 4.49}
+{'loss': 15387.9525, 'grad_norm': 0.0, 'learning_rate': 2.853133769878391e-05, 'epoch': 4.86}
+{'eval_loss': 15372.990234375, 'eval_runtime': 8.3865, 'eval_samples_per_second': 1019.618, 'eval_steps_per_second': 15.978, 'epoch': 4.86}
+{'loss': 15387.1562, 'grad_norm': 0.46381041407585144, 'learning_rate': 2.6452551709801478e-05, 'epoch': 5.24}
+{'eval_loss': 15372.990234375, 'eval_runtime': 8.0684, 'eval_samples_per_second': 1059.813, 'eval_steps_per_second': 16.608, 'epoch': 5.24}
+{'loss': 15386.7025, 'grad_norm': 0.0, 'learning_rate': 2.4373765720819042e-05, 'epoch': 5.61}
+{'eval_loss': 15372.990234375, 'eval_runtime': 8.0884, 'eval_samples_per_second': 1057.189, 'eval_steps_per_second': 16.567, 'epoch': 5.61}
+{'loss': 15390.34, 'grad_norm': 0.24240070581436157, 'learning_rate': 2.2294979731836607e-05, 'epoch': 5.99}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.8849, 'eval_samples_per_second': 1084.481, 'eval_steps_per_second': 16.995, 'epoch': 5.99}
+{'loss': 15385.98, 'grad_norm': 0.0, 'learning_rate': 2.0216193742854175e-05, 'epoch': 6.36}
+{'eval_loss': 15372.990234375, 'eval_runtime': 8.4235, 'eval_samples_per_second': 1015.136, 'eval_steps_per_second': 15.908, 'epoch': 6.36}
+{'loss': 15387.31, 'grad_norm': 0.0, 'learning_rate': 1.813740775387174e-05, 'epoch': 6.74}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.8878, 'eval_samples_per_second': 1084.082, 'eval_steps_per_second': 16.988, 'epoch': 6.74}
+{'loss': 15390.0375, 'grad_norm': 0.0, 'learning_rate': 1.6058621764889305e-05, 'epoch': 7.11}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.5464, 'eval_samples_per_second': 1133.119, 'eval_steps_per_second': 17.757, 'epoch': 7.11}
+{'loss': 15388.6175, 'grad_norm': 0.0, 'learning_rate': 1.3979835775906871e-05, 'epoch': 7.48}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.0439, 'eval_samples_per_second': 1213.957, 'eval_steps_per_second': 19.024, 'epoch': 7.48}
+{'loss': 15388.8762, 'grad_norm': 0.0, 'learning_rate': 1.1901049786924437e-05, 'epoch': 7.86}
+{'eval_loss': 15372.990234375, 'eval_runtime': 8.2761, 'eval_samples_per_second': 1033.221, 'eval_steps_per_second': 16.191, 'epoch': 7.86}
+{'loss': 15386.2425, 'grad_norm': 0.0, 'learning_rate': 9.822263797942002e-06, 'epoch': 8.23}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.7048, 'eval_samples_per_second': 1109.83, 'eval_steps_per_second': 17.392, 'epoch': 8.23}
+{'loss': 15389.62, 'grad_norm': 0.0, 'learning_rate': 7.743477808959569e-06, 'epoch': 8.61}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.8712, 'eval_samples_per_second': 1086.371, 'eval_steps_per_second': 17.024, 'epoch': 8.61}
+{'loss': 15387.02, 'grad_norm': 0.0, 'learning_rate': 5.664691819977134e-06, 'epoch': 8.98}
+{'eval_loss': 15372.990234375, 'eval_runtime': 7.9473, 'eval_samples_per_second': 1075.965, 'eval_steps_per_second': 16.861, 'epoch': 8.98}
+{'loss': 15391.2875, 'grad_norm': 0.0, 'learning_rate': 3.585905830994699e-06, 'epoch': 9.35}
+{'eval_loss': 15372.990234375, 'eval_runtime': 8.2012, 'eval_samples_per_second': 1042.652, 'eval_steps_per_second': 16.339, 'epoch': 9.35}
+{'loss': 15388.4013, 'grad_norm': 0.0, 'learning_rate': 1.5071198420122647e-06, 'epoch': 9.73}
+{'eval_loss': 15372.990234375, 'eval_runtime': 8.0622, 'eval_samples_per_second': 1060.626, 'eval_steps_per_second': 16.621, 'epoch': 9.73}
+{'train_runtime': 1927.7963, 'train_samples_per_second': 354.83, 'train_steps_per_second': 5.545, 'train_loss': 15388.862862488308, 'epoch': 10.0}
+Predictions saved.
+*** Experiment finished ***
+

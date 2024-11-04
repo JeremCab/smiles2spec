@@ -139,9 +139,9 @@ NB_EPOCHS = args.epochs           # 5, 10
 BATCH_SIZE = args.batch_size      # 32, 64
 FINETUNING = args.finetuning      # False, True
 
-ffn_num_layers = args_d["ffn_num_layers"]
-ffn_input_dim = args_d["ffn_input_dim"]
-ffn_hidden_dim = args_d["ffn_hidden_dim"]
+# ffn_num_layers = args_d["ffn_num_layers"]
+# ffn_input_dim = args_d["ffn_input_dim"]
+# ffn_hidden_dim = args_d["ffn_hidden_dim"]
 
 
 
@@ -360,6 +360,7 @@ class SIDLoss(nn.Module):
 # --------- #
 
 model = Smile2Spec(args_d)
+print(model) # XXX
 
 total_params = sum(p.numel() for p in model.parameters())
 total_trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
@@ -456,7 +457,7 @@ with open(os.path.join(RESULTS_FOLDER, "nb_parameters.pkl"), "wb") as fh:
 
 
 torch.save(model.state_dict(), RESULTS_FOLDER + "/model.pt")
-
+print("Model saved.")
 
 # remove checkpoints since best model saved (saves space)
 

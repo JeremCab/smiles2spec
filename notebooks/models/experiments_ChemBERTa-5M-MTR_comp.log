@@ -666,3 +666,96 @@ Total Trainable Params. :  27,607,241
 Predictions saved.
 *** Experiment finished ***
 
+2024-11-03 19:10:34.022423: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2024-11-03 19:10:34.022557: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2024-11-03 19:10:34.268391: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2024-11-03 19:10:34.801097: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2024-11-03 19:10:37.844951: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+/usr/local/lib/python3.11/dist-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at DeepChem/ChemBERTa-5M-MTR and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+*** Start experiment ***
+Inputs:    smiles
+Data type: comp
+Model:     DeepChem/ChemBERTa-5M-MTR
+Results folder: /storage/smiles2spec_models/smiles_comp_ChemBERTa-5M-MTR_FFNN-3-200-2200
+Smile2Spec(
+  (LLM): RobertaForSequenceClassification(
+    (roberta): RobertaModel(
+      (embeddings): RobertaEmbeddings(
+        (word_embeddings): Embedding(600, 384, padding_idx=1)
+        (position_embeddings): Embedding(515, 384, padding_idx=1)
+        (token_type_embeddings): Embedding(1, 384)
+        (LayerNorm): LayerNorm((384,), eps=1e-12, elementwise_affine=True)
+        (dropout): Dropout(p=0.144, inplace=False)
+      )
+      (encoder): RobertaEncoder(
+        (layer): ModuleList(
+          (0-2): 3 x RobertaLayer(
+            (attention): RobertaAttention(
+              (self): RobertaSdpaSelfAttention(
+                (query): Linear(in_features=384, out_features=384, bias=True)
+                (key): Linear(in_features=384, out_features=384, bias=True)
+                (value): Linear(in_features=384, out_features=384, bias=True)
+                (dropout): Dropout(p=0.109, inplace=False)
+              )
+              (output): RobertaSelfOutput(
+                (dense): Linear(in_features=384, out_features=384, bias=True)
+                (LayerNorm): LayerNorm((384,), eps=1e-12, elementwise_affine=True)
+                (dropout): Dropout(p=0.144, inplace=False)
+              )
+            )
+            (intermediate): RobertaIntermediate(
+              (dense): Linear(in_features=384, out_features=464, bias=True)
+              (intermediate_act_fn): GELUActivation()
+            )
+            (output): RobertaOutput(
+              (dense): Linear(in_features=464, out_features=384, bias=True)
+              (LayerNorm): LayerNorm((384,), eps=1e-12, elementwise_affine=True)
+              (dropout): Dropout(p=0.144, inplace=False)
+            )
+          )
+        )
+      )
+    )
+    (classifier): RobertaClassificationHead(
+      (dense): Linear(in_features=384, out_features=384, bias=True)
+      (dropout): Dropout(p=0.144, inplace=False)
+      (out_proj): Linear(in_features=384, out_features=2200, bias=True)
+    )
+  )
+  (ffn): Sequential(
+    (0): ReLU()
+    (1): Linear(in_features=2200, out_features=2200, bias=True)
+    (2): Dropout(p=0.2, inplace=False)
+    (3): ReLU()
+    (4): Linear(in_features=2200, out_features=2200, bias=True)
+    (5): Dropout(p=0.2, inplace=False)
+    (6): ReLU()
+    (7): Linear(in_features=2200, out_features=1801, bias=True)
+    (8): Dropout(p=0.2, inplace=False)
+    (9): ReLU()
+  )
+)
+Total Params. :  17,922,841
+Total Trainable Params. :  17,922,841
+[2024-11-03 19:11:13,183] [INFO] [real_accelerator.py:158:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+{'loss': 15411.8787, 'grad_norm': 0.0, 'learning_rate': 1.8709073900841907e-05, 'epoch': 0.37}
+{'eval_loss': 15372.990234375, 'eval_runtime': 4.4381, 'eval_samples_per_second': 1926.712, 'eval_steps_per_second': 30.193, 'epoch': 0.37}
+{'loss': 15388.6338, 'grad_norm': 0.46650388836860657, 'learning_rate': 3.7418147801683815e-05, 'epoch': 0.75}
+{'eval_loss': 15372.990234375, 'eval_runtime': 4.1381, 'eval_samples_per_second': 2066.421, 'eval_steps_per_second': 32.382, 'epoch': 0.75}
+{'loss': 15389.13, 'grad_norm': 0.6546075344085693, 'learning_rate': 4.9319197588608256e-05, 'epoch': 1.12}
+{'eval_loss': 15372.990234375, 'eval_runtime': 3.8669, 'eval_samples_per_second': 2211.351, 'eval_steps_per_second': 34.653, 'epoch': 1.12}
+Traceback (most recent call last):
+  File "/notebooks/smiles2spec/notebooks/models/train_model.py", line 435, in <module>
+    results = trainer.train()
+              ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/transformers/trainer.py", line 2052, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/transformers/trainer.py", line 2393, in _inner_training_loop
+    and (torch.isnan(tr_loss_step) or torch.isinf(tr_loss_step))
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

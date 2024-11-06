@@ -45,7 +45,7 @@ from huggingface_hub import login
 # --------- #
 
 # example of command line:
-# python3 train_model.py --inputs smiles --data_type comp --model DeepChem/ChemBERTa-5M-MTR --hidden_layers 0 --input_dim 200 --hidden_dim 2200 --epochs 0.1 >> experiment.log 2>&1
+# python3 train_model.py --inputs smiles --data_type comp --model DeepChem/ChemBERTa-5M-MTR --hidden_layers 0 --hidden_dim 2200 --epochs 0.1 >> experiment.log 2>&1
 
 # Create argument parser
 parser = argparse.ArgumentParser(description="Training arguments...")
@@ -63,9 +63,6 @@ parser.add_argument("--model",  type=str, default="DeepChem/ChemBERTa-5M-MTR", h
 parser.add_argument("--hidden_layers", type=int, default=0, help="Number of hidden layers for the FFNN")
 
 # 5.
-parser.add_argument("--input_dim", type=int, default=200, help="Input dimension of the FFNN")
-
-# 6.
 parser.add_argument("--hidden_dim", type=int, default=2200, help="Hidden dimension of the FFNN")
 
 # 7. *** from here, the parameters are usually the default ones... ***
@@ -97,7 +94,7 @@ DATA_TYPE = args.data_type
 #    "ncfrey/ChemGPT-4.7M"
 #    ...
 MODEL_NAME = args.model
-if MODEL_NAME == "ncfrey/ChemGPT-4.7M":
+if "ChemGPT-4.7M" in MODEL_NAME:
     INPUTS = "selfies"
     
 MODEL_SUFFIX = MODEL_NAME.split("/")[1]
@@ -108,7 +105,7 @@ print(f"Data type: {DATA_TYPE}")
 print(f"Model:     {MODEL_NAME}")
 
 MODEL_CACHE = "/storage/smiles2spec_models"
-SPECIFICATIONS = f"{INPUTS}_{DATA_TYPE}_{MODEL_SUFFIX}_FFNN-{args.hidden_layers}-{args.input_dim}-{args.hidden_dim}"
+SPECIFICATIONS = f"{INPUTS}_{DATA_TYPE}_{MODEL_SUFFIX}_FFNN-{args.hidden_layers}-{args.hidden_dim}"
 
 RESULTS_FOLDER = os.path.join(MODEL_CACHE, SPECIFICATIONS)
 print(f"Results folder: {RESULTS_FOLDER}")
@@ -123,12 +120,11 @@ print(f"Results folder: {RESULTS_FOLDER}")
 
 args_d = {
     'model_name': MODEL_NAME,
-    'output_activation': 'exp',
-    'norm_range': None, # (50, 550),
+    'output_activation': 'exp',          # important for good results!
+    'norm_range': (50, 550),             # important for good results!
     'dropout': 0.2,
     'activation': nn.ReLU(),
     'ffn_num_layers': args.hidden_layers, # e.g., 0, 1, 3, 5, 10
-    'ffn_input_dim': args.input_dim,      # input dim of the FFN
     'ffn_hidden_dim': args.hidden_dim,    # hidden dim of the FFN
     'ffn_output_dim': 1801                # output dim of the FFN
         }
@@ -138,10 +134,6 @@ args_d = {
 NB_EPOCHS = args.epochs           # 5, 10
 BATCH_SIZE = args.batch_size      # 32, 64
 FINETUNING = args.finetuning      # False, True
-
-# ffn_num_layers = args_d["ffn_num_layers"]
-# ffn_input_dim = args_d["ffn_input_dim"]
-# ffn_hidden_dim = args_d["ffn_hidden_dim"]
 
 
 
@@ -227,108 +219,83 @@ test_dataset_exp.set_format('torch', columns=['input_ids', 'attention_mask', 'la
 MODEL_NAME, MODEL_SUFFIX
 
 num_labels = len(train_dataset[0]["labels"])
-num_labels
 
 
-# * WARNING: replace args by args_d if modified from LLM_Base_Model.ipynb *
 class Smile2Spec(nn.Module):
     """A Smile2Spec model contains a LLM head, followed by a Feed Forward MLP."""
-    
-    def __init__(self, args_d): # args_d and not args!
+    def __init__(self, args_d):
         """
         Initializes the Smile2Spec model.
         :param args_d: argument for building the model."""
 
         super(Smile2Spec, self).__init__()
 
-        # # Create LLM head. # xxx old
-        # self.LLM = AutoModelForSequenceClassification.from_pretrained(args_d.get('model_name'), 
-        #                                                               num_labels=args_d.get('ffn_output_dim'))
+        # LLM
+        self.LLM = AutoModelForSequenceClassification.from_pretrained(args_d.get('model_name'))
         
-        if args_d.get('model_name').startswith("ncfrey/ChemGPT"): # xxx
+        # Internal params
+        if "ChemBERTa" in args_d.get('model_name'): # my fix XXX
+            
+            input_dim = self.LLM.classifier.out_proj.out_features
+            
+        if "ChemGPT" in args_d.get('model_name'): # my fix XXX
+            
             self.LLM.config.pad_token_id = self.LLM.config.eos_token_id
-        
-        # Create output objects
+            input_dim = self.LLM.score.out_features
+            
         self.output_activation = args_d.get('output_activation')
         self.norm_range = args_d.get('norm_range')
 
-        # Create FFN params
+        # FFN params
         dropout = nn.Dropout(args_d.get('dropout'))
         activation = args_d.get('activation')
 
-        # Create LLM and FFN layers
-        if args_d.get('ffn_num_layers') == 0: # xxx new
-            # xxx new
-            self.LLM = AutoModelForSequenceClassification.from_pretrained(args_d.get('model_name'), 
-                                                                          num_labels=args_d.get('ffn_output_dim'))
-            ffn = [activation] # xxx new
+        # New classification head
+        # First layer        
+        if args_d.get('ffn_num_layers') == 0:
+            output_dim = args_d.get('ffn_output_dim')
+        else:
+            output_dim = args_d.get('ffn_hidden_dim')
+            
+        ffn = [activation, dropout, nn.Linear(input_dim, output_dim)]
         
-        if args_d.get('ffn_num_layers') >= 1:
-            
-            # xxx new
-            self.LLM = AutoModelForSequenceClassification.from_pretrained(args_d.get('model_name'), 
-                                                                          num_labels=args_d.get('ffn_hidden_dim'))
-            
-            exactly_one_layer = args_d.get('ffn_num_layers') == 1
-            output_dim = args_d.get('ffn_output_dim') if exactly_one_layer else args_d.get('ffn_hidden_dim')
-            
-            ffn = [
-                activation, # xxx new
-                # dropout,
-                nn.Linear(args_d.get('ffn_hidden_dim'), output_dim), # xxx new architecture
-                dropout,    # xxx new
-                activation, # xxx new
-                ]
-            
-            # xxx new
-            if args_d.get('ffn_num_layers') > 1:
-            
-                for _ in range(args_d.get('ffn_num_layers') - 2):
-                    ffn.extend([
-                        # activation,
-                        # dropout,
-                        nn.Linear(args_d.get('ffn_hidden_dim'), args_d.get('ffn_hidden_dim')),
-                        dropout,   # xxx new
-                        activation # xxx new
-                        ])
+        # Next layers
+        input_dim = args_d.get('ffn_hidden_dim')
+        output_dim = args_d.get('ffn_hidden_dim')
+        
+        for l in range(args_d.get('ffn_num_layers')):
 
-                ffn.extend([
-                    # activation,
-                    # dropout,
-                    nn.Linear(args_d.get('ffn_hidden_dim'), args_d.get('ffn_output_dim')),
-                    dropout,   # xxx new
-                    activation # xxx new
-                ])
+            if l == (args_d.get('ffn_num_layers') - 1):
+                output_dim = args_d.get('ffn_output_dim')
+                
+            ffn.extend([activation, dropout, nn.Linear(input_dim, output_dim)])
 
         self.ffn = nn.Sequential(*ffn)
 
     def forward(self,
                 input_ids = None,
                 attention_mask = None,
-                labels = None):
+                labels=None):
         """
         Runs the Smile2Spec model on input.
         
         :return: Output of the Smile2Spec model."""
 
-        # Compute LLM output
-        LLM_output = self.LLM(input_ids, attention_mask=attention_mask).logits # type: ignore
+        #Compute LLM output.
+        LLM_output = self.LLM(input_ids, 
+                              attention_mask=attention_mask).logits # type: ignore
 
-        # Compute ffn output
-        if args_d.get('ffn_num_layers') > 0 :
-            output = self.ffn(LLM_output) 
-        else:
-            output = LLM_output
+        #Compute ffn output.
+        output = self.ffn(LLM_output)
 
-        # Positive value mapping
+        # Positive value
         if self.output_activation == 'exp':
             output = torch.exp(output)
-            
-        if self.output_activation == 'ReLU':
+        if self.output_activation == 'relu':
             f = nn.ReLU()
             output = f(output)
 
-        # Normalization mapping
+        # Normalization
         if self.norm_range is not None:
             norm_data = output[:, self.norm_range[0]:self.norm_range[1]]
             norm_sum = torch.sum(norm_data, 1)
@@ -360,7 +327,6 @@ class SIDLoss(nn.Module):
 # --------- #
 
 model = Smile2Spec(args_d)
-print(model) # XXX
 
 total_params = sum(p.numel() for p in model.parameters())
 total_trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)

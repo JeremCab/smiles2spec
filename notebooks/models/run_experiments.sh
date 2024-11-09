@@ -5,7 +5,7 @@ export TQDM_DISABLE=1
 # "DeepChem/ChemBERTa-5M-MTR" "ncfrey/ChemGPT-4.7M"
 models=("DeepChem/ChemBERTa-5M-MTR") # "ncfrey/ChemGPT-4.7M" "DeepChem/ChemBERTa-5M-MTR"
 
-data=("comp")            # "comp" "exp" do comp and exp separately?
+data=("exp")             # "comp" "exp" do comp and exp separately?
 nb_epochs=15             # 10 originally
 hidden_layers=(0 1 3)    # (0 1 3 5)
 

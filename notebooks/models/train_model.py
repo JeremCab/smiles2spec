@@ -54,7 +54,7 @@ parser = argparse.ArgumentParser(description="Training arguments...")
 parser.add_argument("--inputs", choices=["smiles", "selfies"], default="smiles", help="SMILES or SELFIES")
 
 # 2.
-parser.add_argument("--data_type", choices=["comp", "exp"], default="comp", help="Computational or experimental spectra")
+parser.add_argument("--data_type", choices=["comp", "exp", "comp_exp"], default="comp", help="Computational or experimental spectra")
 
 # 3.
 parser.add_argument("--model",  type=str, default="DeepChem/ChemBERTa-5M-MTR", help="Computational or experimental spectra")
@@ -70,9 +70,6 @@ parser.add_argument("--epochs", type=float, default=5, help="Number of epochs")
 
 # 8.
 parser.add_argument("--batch_size", type=int, default=64, help="Batch size")
-
-# 9.
-parser.add_argument("--finetuning", type=bool, default=False, help="Whether too finetune on experimental data")
 
 # Parse arguments
 args = parser.parse_args()
@@ -131,10 +128,11 @@ args_d = {
 
 # Training parameters (gotten from arguments)
 
-NB_EPOCHS = args.epochs           # 5, 10
+NB_EPOCHS = args.epochs           # 5, 10, 15, 16
 BATCH_SIZE = args.batch_size      # 32, 64
-FINETUNING = args.finetuning      # False, True
-if FINETUNING:
+
+if DATA_TYPE == "comp_exp":
+    FINETUNING = True
     NB_EPOCHS /= 2
 
 
@@ -157,14 +155,12 @@ elif INPUTS == "smiles":
 
 train_dataset = load_from_disk(os.path.join(DATASET_FOLDER, f"train_{MODE}{DATA_TYPE}.hf"), keep_in_memory=True)
 val_dataset = load_from_disk(os.path.join(DATASET_FOLDER, f"val_{MODE}{DATA_TYPE}.hf"), keep_in_memory=True)
-
 test_dataset_comp = load_from_disk(os.path.join(DATASET_FOLDER, f"test_{MODE}comp.hf"), keep_in_memory=True)
 test_dataset_exp = load_from_disk(os.path.join(DATASET_FOLDER, f"test_{MODE}exp.hf"), keep_in_memory=True)
 
 
 train_dataset = train_dataset.rename_column("spectrum", "labels")
 val_dataset = val_dataset.rename_column("spectrum", "labels")
-
 test_dataset_comp = test_dataset_comp.rename_column("spectrum", "labels")
 test_dataset_exp = test_dataset_exp.rename_column("spectrum", "labels")
 
@@ -197,17 +193,13 @@ def tokenize(batch, inputs_type="smiles"):
 
     return tokens
 
-
 train_dataset = train_dataset.map(tokenize, fn_kwargs={"inputs_type": INPUTS}, batched=True)
 val_dataset = val_dataset.map(tokenize, fn_kwargs={"inputs_type": INPUTS}, batched=True)
-
 test_dataset_comp = test_dataset_comp.map(tokenize, fn_kwargs={"inputs_type": INPUTS}, batched=True)
 test_dataset_exp = test_dataset_exp.map(tokenize, fn_kwargs={"inputs_type": INPUTS}, batched=True)
 
-
 train_dataset.set_format('torch', columns=['input_ids', 'attention_mask', 'labels'])
 val_dataset.set_format('torch', columns=['input_ids', 'attention_mask', 'labels'])
-
 test_dataset_comp.set_format('torch', columns=['input_ids', 'attention_mask', 'labels'])
 test_dataset_exp.set_format('torch', columns=['input_ids', 'attention_mask', 'labels'])
 
@@ -216,6 +208,7 @@ test_dataset_exp.set_format('torch', columns=['input_ids', 'attention_mask', 'la
 # ----- #
 # Model #
 # ----- #
+
 
 MODEL_NAME, MODEL_SUFFIX
 
@@ -441,17 +434,13 @@ for d in dirs:
 
 if FINETUNING:
     
-    #Load dataset
-    train_dataset_exp = load_from_disk(os.path.join(DATASET_FOLDER, "train_exp"), keep_in_memory=True)
-    val_dataset_exp = load_from_disk(os.path.join(DATASET_FOLDER, "val_exp"), keep_in_memory=True)
-    
-    #Preprocess Dataset
+    # Load dataset
+    train_dataset_exp = load_from_disk(os.path.join(DATASET_FOLDER, f"train_{MODE}exp.hf"), keep_in_memory=True)
+    val_dataset_exp = load_from_disk(os.path.join(DATASET_FOLDER, f"val_{MODE}exp.hf"), keep_in_memory=True)
     train_dataset_exp = train_dataset_exp.rename_column("spectrum", "labels")
     val_dataset_exp = val_dataset_exp.rename_column("spectrum", "labels")
-    
     train_dataset_exp = train_dataset_exp.map(tokenize, batched=True)
     val_dataset_exp = val_dataset_exp.map(tokenize, batched=True)
-    
     train_dataset_exp.set_format('torch', columns=['input_ids', 'attention_mask', 'labels'])
     val_dataset_exp.set_format('torch', columns=['input_ids', 'attention_mask', 'labels'])
 

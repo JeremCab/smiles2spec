@@ -134,7 +134,8 @@ args_d = {
 NB_EPOCHS = args.epochs           # 5, 10
 BATCH_SIZE = args.batch_size      # 32, 64
 FINETUNING = args.finetuning      # False, True
-
+if FINETUNING:
+    NB_EPOCHS /= 2
 
 
 # -------- #
@@ -462,7 +463,7 @@ if FINETUNING:
         output_dir=f"/storage/smiles2spec_models/exp/{MODEL_SUFFIX}",          
         
         # params
-        num_train_epochs=NB_EPOCHS // 2,          # nb of epochs
+        num_train_epochs=NB_EPOCHS,               # nb of epochs
         per_device_train_batch_size=BATCH_SIZE,   # batch size per device during training
         per_device_eval_batch_size=BATCH_SIZE,    # cf. paper Sun et al.
         learning_rate=5e-5, #2e-5,                # cf. seyonechithrananda / cf. paper Sun et al.

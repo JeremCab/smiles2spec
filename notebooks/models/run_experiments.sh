@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# *** INSTLL LIBRAIRIES OF LLM_Base_Model.ipynb BEFORE RUNNING THIS SCRIPT ***
+
 export TQDM_DISABLE=1
 
 # "DeepChem/ChemBERTa-5M-MTR" "ncfrey/ChemGPT-4.7M"

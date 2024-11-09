@@ -1,11 +1,14 @@
 #!/bin/bash
 
+# *** INSTLL LIBRAIRIES OF results.ipynb BEFORE RUNNING THIS SCRIPT ***
+
 # loop over dirs in /storage/smiles2spec_models/
 dirs=()
 
 for dir in /storage/smiles2spec_models/*/; do
     # if [[ -d "$dir" && ! $(basename "$dir") =~ ^old_ ]]; then
-    if [[ -d "$dir" && ! $(basename "$dir") =~ ^smiles_comp_ ]]; then
+    # if [[ -d "$dir" && ! $(basename "$dir") =~ ^smiles_comp_ ]]; then
+    if [[ -d "$dir" && $(basename "$dir") =~ ^smiles_comp_exp ]]; then
         dirs+=("$dir")  # Add directory to the array
     fi
 done

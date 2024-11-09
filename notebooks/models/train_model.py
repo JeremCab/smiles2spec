@@ -319,7 +319,9 @@ class SIDLoss(nn.Module):
         
         loss = torch.sum(loss, dim=1)
 
-        return loss.mean()
+        # return loss.mean()
+        return 10 * loss.mean()    # XXX multiplied by 10
+        
 
 
 # --------- #

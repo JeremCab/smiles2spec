@@ -23,7 +23,7 @@ for m in "${models[@]}"; do
                 --model "$m" \
                 --hidden_layers "$h" \
                 --hidden_dim 2200 \
-                --epochs "$nb_epochs" \ >> "experiments_${m#*/}_${data#*/}.log" 2>&1
+                --epochs "$nb_epochs" >> "experiments_${m#*/}_${data#*/}.log" 2>&1
 
             echo "Experiment completed."
             echo

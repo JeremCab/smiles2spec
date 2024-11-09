@@ -133,7 +133,8 @@ BATCH_SIZE = args.batch_size      # 32, 64
 
 if DATA_TYPE == "comp_exp":
     FINETUNING = True
-    NB_EPOCHS /= 2
+    NB_EPOCHS //= 2
+DATA_TYPE = "comp"
 
 
 # -------- #

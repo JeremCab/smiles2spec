@@ -71,6 +71,9 @@ parser.add_argument("--epochs", type=float, default=5, help="Number of epochs")
 # 8.
 parser.add_argument("--batch_size", type=int, default=64, help="Batch size")
 
+# 9.
+parser.add_argument("--loss", type=str, default="SID", help="Loss funcion")
+
 # Parse arguments
 args = parser.parse_args()
 
@@ -102,7 +105,12 @@ print(f"Data type: {DATA_TYPE}")
 print(f"Model:     {MODEL_NAME}")
 
 MODEL_CACHE = "/storage/smiles2spec_models"
-SPECIFICATIONS = f"{INPUTS}_{DATA_TYPE}_{MODEL_SUFFIX}_FFNN-{args.hidden_layers}-{args.hidden_dim}"
+
+suffix = "" # add MSE to results folder if loss is MSE
+if args.loss == "MSE":
+    suffix = f"_{args.loss}"
+
+SPECIFICATIONS = f"{INPUTS}_{DATA_TYPE}_{MODEL_SUFFIX}_FFNN-{args.hidden_layers}-{args.hidden_dim}" + suffix
 
 RESULTS_FOLDER = os.path.join(MODEL_CACHE, SPECIFICATIONS)
 print(f"Results folder: {RESULTS_FOLDER}")
@@ -123,7 +131,8 @@ args_d = {
     'activation': nn.ReLU(),
     'ffn_num_layers': args.hidden_layers, # e.g., 0, 1, 3, 5, 10
     'ffn_hidden_dim': args.hidden_dim,    # hidden dim of the FFN
-    'ffn_output_dim': 1801                # output dim of the FFN
+    'ffn_output_dim': 1801,               # output dim of the FFN
+    'loss': args.loss                     # loss function (SID or MSE)
         }
 
 # Training parameters (gotten from arguments)
@@ -332,18 +341,49 @@ print("Total Params. : ", f"{total_params:,}")
 print("Total Trainable Params. : ", f"{total_trainable_params:,}")
 
 
+# class CustomTrainer(Trainer):
+
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+   
+#     def compute_loss(self, model, inputs, return_outputs=False):
+        
+#         labels = inputs.get("labels")
+#         outputs = model(**inputs)
+#         loss_fct = SIDLoss()
+#         loss = loss_fct(outputs, labels)
+        
+#         return (loss, {"label": outputs}) if return_outputs else loss
+    
 class CustomTrainer(Trainer):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, loss_type="SID", **kwargs):
+        """
+        CustomTrainer with configurable loss function.
+        
+        Args:
+            loss_type (str): The type of loss to use ('SID' or 'MSE').
+        """
         super().__init__(*args, **kwargs)
-   
+        
+        self.loss_type = loss_type
+        self.loss_fct_sid = SIDLoss()
+        self.loss_fct_mse = nn.MSELoss()
+
     def compute_loss(self, model, inputs, return_outputs=False):
         
         labels = inputs.get("labels")
         outputs = model(**inputs)
-        loss_fct = SIDLoss()
-        loss = loss_fct(outputs, labels)
-        
+        loss = None
+
+        # Choose loss function based on the parameter
+        if self.loss_type == "SID":
+            loss = self.loss_fct_sid(outputs, labels)
+        elif self.loss_type == "MSE":
+            loss = self.loss_fct_mse(outputs, labels) * 1e+5 # multiply by 1e+5 for scaling
+        else:
+            raise ValueError(f"Unknown loss type: {self.loss_type}")
+
         return (loss, {"label": outputs}) if return_outputs else loss
 
 
@@ -386,6 +426,7 @@ training_args = TrainingArguments(
 
 
 trainer = CustomTrainer(
+    loss_type=args_d.get('loss'), # SID or MSE loss
     model=model,
     args=training_args,
     tokenizer=tokenizer,

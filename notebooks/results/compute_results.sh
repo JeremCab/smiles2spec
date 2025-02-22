@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# *** INSTLL LIBRAIRIES OF results.ipynb BEFORE RUNNING THIS SCRIPT ***
+# *** INSTALL LIBRAIRIES OF results.ipynb BEFORE RUNNING THIS SCRIPT ***
 
 # loop over dirs in /storage/smiles2spec_models/
 dirs=()

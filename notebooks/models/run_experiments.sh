@@ -7,7 +7,7 @@ export TQDM_DISABLE=1
 # "DeepChem/ChemBERTa-5M-MTR" "ncfrey/ChemGPT-4.7M"
 models=("DeepChem/ChemBERTa-5M-MTR") # "ncfrey/ChemGPT-4.7M" "DeepChem/ChemBERTa-5M-MTR"
 
-data=("comp_exp")        # "comp" "exp" "comp_exp" do comp and exp separately?
+data=("comp" "exp" "comp_exp")            # "comp" "exp" "comp_exp" do comp and exp separately?
 nb_epochs=16             # 15 originally; 16 if finetuning mode
 hidden_layers=(0 1 3)    # (0 1 3 5)
 
@@ -25,7 +25,7 @@ for m in "${models[@]}"; do
                 --model "$m" \
                 --hidden_layers "$h" \
                 --hidden_dim 2200 \
-                --loss "MSE" \ # new
+                --loss "MSE" \
                 --epochs "$nb_epochs" >> "experiments_${m#*/}_${data#*/}.log" 2>&1
 
             echo "Experiment completed."

@@ -139,11 +139,12 @@ args_d = {
 
 NB_EPOCHS = args.epochs           # 5, 10, 15, 16
 BATCH_SIZE = args.batch_size      # 32, 64
+FINETUNING = False
 
 if DATA_TYPE == "comp_exp":
     FINETUNING = True
     NB_EPOCHS //= 2
-DATA_TYPE = "comp"
+    DATA_TYPE = "comp"
 
 
 # -------- #

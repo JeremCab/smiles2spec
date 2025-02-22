@@ -235,3 +235,47 @@ Model saved.
 Predictions saved.
 *** Experiment finished ***
 
+2025-02-22 19:47:04.992850: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-02-22 19:47:05.028072: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2025-02-22 19:47:05.028151: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-02-22 19:47:05.029275: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-02-22 19:47:05.034834: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-02-22 19:47:05.820825: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+/usr/local/lib/python3.11/dist-packages/torch/_utils.py:831: UserWarning: TypedStorage is deprecated. It will be removed in the future and UntypedStorage will be the only storage class. This should only matter to you if you are using storages directly.  To access UntypedStorage directly, use tensor.untyped_storage() instead of tensor.storage()
+  return self.fget.__get__(instance, owner)()
+Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at DeepChem/ChemBERTa-5M-MTR and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+*** Start experiment ***
+Inputs:    smiles
+Data type: exp
+Model:     DeepChem/ChemBERTa-5M-MTR
+Results folder: /storage/smiles2spec_models/smiles_exp_ChemBERTa-5M-MTR_FFNN-0-2200_MSE
+Total Params. :  3,864,255
+Total Trainable Params. :  3,864,255
+[2025-02-22 19:47:27,276] [INFO] [real_accelerator.py:158:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+{'loss': 0.3066, 'grad_norm': 0.058632783591747284, 'learning_rate': 1.168907071887785e-05, 'epoch': 0.37}
+{'eval_loss': 0.1401808261871338, 'eval_runtime': 3.5007, 'eval_samples_per_second': 2442.632, 'eval_steps_per_second': 38.278, 'epoch': 0.37}
+{'loss': 0.9251, 'grad_norm': 0.019981706514954567, 'learning_rate': 2.33781414377557e-05, 'epoch': 0.75}
+{'eval_loss': 0.10274732112884521, 'eval_runtime': 3.8063, 'eval_samples_per_second': 2246.513, 'eval_steps_per_second': 35.204, 'epoch': 0.75}
+{'loss': 0.0909, 'grad_norm': 0.025823190808296204, 'learning_rate': 3.506721215663355e-05, 'epoch': 1.12}
+{'eval_loss': 0.086817167699337, 'eval_runtime': 3.8832, 'eval_samples_per_second': 2202.043, 'eval_steps_per_second': 34.508, 'epoch': 1.12}
+{'loss': 0.0983, 'grad_norm': 0.051757343113422394, 'learning_rate': 4.67562828755114e-05, 'epoch': 1.5}
+{'eval_loss': 0.07129719853401184, 'eval_runtime': 4.2168, 'eval_samples_per_second': 2027.856, 'eval_steps_per_second': 31.778, 'epoch': 1.5}
+{'loss': 0.4872, 'grad_norm': 0.07167451828718185, 'learning_rate': 4.906126161242123e-05, 'epoch': 1.87}
+{'eval_loss': 0.06513156741857529, 'eval_runtime': 4.0291, 'eval_samples_per_second': 2122.306, 'eval_steps_per_second': 33.258, 'epoch': 1.87}
+{'loss': 0.4751, 'grad_norm': 0.04027562215924263, 'learning_rate': 4.7761969726499064e-05, 'epoch': 2.25}
+{'eval_loss': 0.06140642240643501, 'eval_runtime': 4.1799, 'eval_samples_per_second': 2045.755, 'eval_steps_per_second': 32.058, 'epoch': 2.25}
+Traceback (most recent call last):
+  File "/notebooks/smiles2spec/notebooks/models/train_model.py", line 439, in <module>
+    start_time = time.time()
+              ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/transformers/trainer.py", line 2052, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/transformers/trainer.py", line 2440, in _inner_training_loop
+    is_accelerate_available()
+  File "/usr/local/lib/python3.11/dist-packages/transformers/utils/import_utils.py", line 310, in is_accelerate_available
+    def is_accelerate_available(min_version: str = ACCELERATE_MIN_VERSION):
+    
+KeyboardInterrupt

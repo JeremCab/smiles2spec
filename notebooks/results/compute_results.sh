@@ -8,7 +8,8 @@ dirs=()
 for dir in /storage/smiles2spec_models/*/; do
     # if [[ -d "$dir" && ! $(basename "$dir") =~ ^old_ ]]; then
     # if [[ -d "$dir" && ! $(basename "$dir") =~ ^smiles_comp_ ]]; then
-    if [[ -d "$dir" && $(basename "$dir") =~ ^smiles_comp_exp ]]; then
+    # if [[ -d "$dir" && $(basename "$dir") =~ ^smiles_comp_exp ]]; then
+    if [[ -d "$dir" && $(basename "$dir") =~ MSE$ ]]; then
         dirs+=("$dir")  # Add directory to the array
     fi
 done

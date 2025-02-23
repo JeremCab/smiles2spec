@@ -279,3 +279,60 @@ Traceback (most recent call last):
     def is_accelerate_available(min_version: str = ACCELERATE_MIN_VERSION):
     
 KeyboardInterrupt
+2025-02-23 15:55:22.920546: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2025-02-23 15:55:22.920603: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-02-23 15:55:22.921819: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-02-23 15:55:22.927750: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-02-23 15:55:23.748839: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+*** Start experiment ***
+Inputs:    smiles
+Data type: exp
+Model:     DeepChem/ChemBERTa-5M-MTR
+Results folder: /storage/smiles2spec_models/smiles_exp_ChemBERTa-5M-MTR_FFNN-0-2200_MSE
+Token will not been saved to git credential helper. Pass `add_to_git_credential=True` if you want to set the git credential as well.
+Token is valid (permission: read).
+Your token has been saved to /root/.cache/huggingface/token
+Login successful
+tokenizer_config.json:   0%|                                                     | 0.00/1.27k [00:00<?, ?B/s]tokenizer_config.json: 100%|████████████████████████████████████████████| 1.27k/1.27k [00:00<00:00, 9.30MB/s]
+config.json:   0%|                                                               | 0.00/17.7k [00:00<?, ?B/s]config.json: 100%|██████████████████████████████████████████████████████| 17.7k/17.7k [00:00<00:00, 97.9MB/s]
+vocab.json:   0%|                                                                | 0.00/6.96k [00:00<?, ?B/s]vocab.json: 100%|███████████████████████████████████████████████████████| 6.96k/6.96k [00:00<00:00, 47.8MB/s]
+merges.txt:   0%|                                                                 | 0.00/52.0 [00:00<?, ?B/s]merges.txt: 100%|██████████████████████████████████████████████████████████| 52.0/52.0 [00:00<00:00, 367kB/s]
+tokenizer.json:   0%|                                                            | 0.00/8.26k [00:00<?, ?B/s]tokenizer.json: 100%|███████████████████████████████████████████████████| 8.26k/8.26k [00:00<00:00, 65.9MB/s]
+added_tokens.json:   0%|                                                          | 0.00/25.0 [00:00<?, ?B/s]added_tokens.json: 100%|███████████████████████████████████████████████████| 25.0/25.0 [00:00<00:00, 222kB/s]
+special_tokens_map.json:   0%|                                                     | 0.00/420 [00:00<?, ?B/s]special_tokens_map.json: 100%|██████████████████████████████████████████████| 420/420 [00:00<00:00, 3.13MB/s]
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+config.json:   0%|                                                               | 0.00/17.7k [00:00<?, ?B/s]config.json: 100%|██████████████████████████████████████████████████████| 17.7k/17.7k [00:00<00:00, 75.4MB/s]
+pytorch_model.bin:   0%|                                                         | 0.00/14.0M [00:00<?, ?B/s]pytorch_model.bin: 100%|█████████████████████████████████████████████████| 14.0M/14.0M [00:00<00:00, 143MB/s]
+Some weights of RobertaForSequenceClassification were not initialized from the model checkpoint at DeepChem/ChemBERTa-5M-MTR and are newly initialized: ['classifier.out_proj.bias', 'classifier.dense.bias', 'classifier.out_proj.weight', 'classifier.dense.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Total Params. :  3,864,255
+Total Trainable Params. :  3,864,255
+Traceback (most recent call last):
+  File "/notebooks/smiles2spec/notebooks/models/train_model.py", line 391, in <module>
+    training_args = TrainingArguments(
+                    ^^^^^^^^^^^^^^^^^^
+TypeError: TrainingArguments.__init__() got an unexpected keyword argument 'eval_strategy'
+2025-02-23 15:55:44.766273: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2025-02-23 15:55:44.766321: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2025-02-23 15:55:44.767456: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-02-23 15:55:44.773276: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2025-02-23 15:55:45.574084: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+*** Start experiment ***
+Inputs:    smiles
+Data type: exp
+Model:     DeepChem/ChemBERTa-5M-MTR
+Results folder: /storage/smiles2spec_models/smiles_exp_ChemBERTa-5M-MTR_FFNN-1-2200_MSE
+Token will not been saved to git credential helper. Pass `add_to_git_credential=True` if you want to set the git credential as well.
+Token is valid (permission: read).
+Your token has been saved to /root/.cache/huggingface/token
+Login successful
+tokenizer_config.json:   0%|                                                     | 0.00/1.27k [00:00<?, ?B/s]tokenizer_config.json: 100%|████████████████████████████████████████████| 1.27k/1.27k [00:00<00:00, 9.27MB/s]
+config.json:   0%|                                                               | 0.00/17.7k [00:00<?, ?B/s]config.json: 100%|██████████████████████████████████████████████████████| 17.7k/17.7k [00:00<00:00, 98.8MB/s]
+vocab.json:   0%|                                                                | 0.00/6.96k [00:00<?, ?B/s]vocab.json: 100%|███████████████████████████████████████████████████████| 6.96k/6.96k [00:00<00:00, 39.2MB/s]
+merges.txt:   0%|                                                                 | 0.00/52.0 [00:00<?, ?B/s]merges.txt: 100%|██████████████████████████████████████████████████████████| 52.0/52.0 [00:00<00:00, 412kB/s]
+tokenizer.json:   0%|                                                            | 0.00/8.26k [00:00<?, ?B/s]tokenizer.json: 100%|███████████████████████████████████████████████████| 8.26k/8.26k [00:00<00:00, 64.3MB/s]
+added_tokens.json:   0%|                                                          | 0.00/25.0 [00:00<?, ?B/s]added_tokens.json: 100%|███████████████████████████████████████████████████| 25.0/25.0 [00:00<00:00, 256kB/s]
+special_tokens_map.json:   0%|                                                     | 0.00/420 [00:00<?, ?B/s]special_tokens_map.json: 100%|██████████████████████████████████████████████| 420/420 [00:00<00:00, 4.61MB/s]
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
